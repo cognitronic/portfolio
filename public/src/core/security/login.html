@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-5 col-xs-12 col-xs-offset-2">
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" ng-model="model.user.email" class="required" name="email"/>
+        </div>
+        <div>
+            <label for="pwd">Password:</label>
+            <input type="password" id="pwd" class="required" ng-model="model.user.password" name="pwd"/>
+        </div>
+        <div>
+            <button class="btn btn-default" ng-click="model.login()">Login</button>
+        </div>
+    </div>
+</div>

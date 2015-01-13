@@ -6,6 +6,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-jsdoc');
@@ -14,13 +15,14 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         meta: {
             jsFilesForTesting: [
-                'app/vendors/jquery/jquery.js',
-                'app/vendors/angular/angular.js',
-                'app/vendors/angular-bootstrap/ui-bootstrap-tpls-0.6.0.js',
-                'app/vendors/angular-ui-router/release/angular-ui-router.js',
-                'app/vendors/angular-mocks/angular-mocks.js',
-                'app/vendors/lodash/dist/lodash.js',
-                'app/src/**/*.spec.js'
+                'public/vendors/jquery/jquery.js',
+                'public/vendors/angular/angular.js',
+                'public/vendors/angular-bootstrap/ui-bootstrap-tpls.js',
+                'public/vendors/angular-ui-router/release/angular-ui-router.js',
+                'public/vendors/angular-mocks/angular-mocks.js',
+                'public/vendors/lodash/dist/lodash.js',
+                'public/src/app.js',
+                'public/src/**/*.spec.js'
             ]
         },
 
@@ -30,7 +32,7 @@ module.exports = function (grunt) {
                 options: {
                     files: [
                         '<%= meta.jsFilesForTesting %>',
-                        'app/src/**/*.js'
+                        'public/src/**/*.js'
                     ]
                 }
             },
@@ -53,9 +55,8 @@ module.exports = function (grunt) {
                 }
             }
         },
-
         jshint: {
-            beforeconcat: ['app/src/**/*.js'],
+            beforeconcat: ['public/src/**/*.js'],
             ignore_warning: {
                 options: {
                     '-W030': true
@@ -65,11 +66,11 @@ module.exports = function (grunt) {
 
         concat: {
             dist: {
-                src: ['app/src/module.js','app/src/**/*.js', '!app/src/**/*.spec.js'],
+                src: ['public/src/module.js', 'public/src/app.js','public/src/**/*.js', '!public/src/**/*.spec.js'],
                 dest: 'dist/<%= pkg.namelower %>-<%= pkg.version %>.js'
             },
             dist_css: {
-                src:['app/src/assets/css/**/*.css'],
+                src:['public/src/assets/css/**/*.css', '!public/src/assets/css/<%= pkg.namelower %>-<%= pkg.version %>.*'],
                 dest:'dist/<%= pkg.namelower %>-<%= pkg.version %>.css'
             }
         },
@@ -90,9 +91,26 @@ module.exports = function (grunt) {
                 }
             }
         },
-
+        copy: {
+            dist: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'dist/',
+                        src: ['<%= pkg.namelower %>-<%= pkg.version %>.js','<%= pkg.namelower %>-<%= pkg.version %>.min.js'],
+                        dest: 'public/vendors/'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'dist/',
+                        src: ['<%= pkg.namelower %>-<%= pkg.version %>.css','<%= pkg.namelower %>-<%= pkg.version %>.min.css'],
+                        dest: 'public/src/assets/css/'
+                    }
+                ]
+            }
+        },
         jsdoc: {
-            src: ['app/src/**/*.js'],
+            src: ['public/src/**/*.js'],
             options: {
                 destination: 'doc'
             }
@@ -110,6 +128,7 @@ module.exports = function (grunt) {
             'uglify',
             'karma:minified',
             'cssmin:dist_css',
+            'copy:dist',
             'jsdoc'
         ]);
 };

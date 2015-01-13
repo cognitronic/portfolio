@@ -24,7 +24,26 @@
     "karma-coverage":            "~0.1",
     "karma-jasmine":            "0.1.5",
     "karma-phantomjs-launcher": "0.1.4",
-    "jasmine-node":             "1.14.5"
+    "jasmine-node":             "1.14.5",
+    "socket.io":                "latest",
+    "express":                  "~4.0.0",
+    "express-session":          "~1.9.2",
+    "static-favicon":           "~1.0.0",
+    "morgan":                   "~1.0.0",
+    "cookie-parser":            "~1.0.1",
+    "method-override":          "~1.0.0",
+    "body-parser":              "~1.0.0",
+    "debug":                    "~0.7.4",
+    "mongoose" :                "~3.8.1",
+    "passport" :                "~0.1.17",
+    "passport-local" :          "~0.1.6",
+    "passport-facebook" :       "~1.0.2",
+    "passport-twitter" :        "~1.0.2",
+    "passport-google-oauth" :   "~0.1.5",
+    "connect-flash" :           "~0.1.1",
+    "bcrypt-nodejs" :           "latest",
+    "grunt-nodemon":            "~0.3.0",
+    "jade":                     "~1.8.2"
   },
   "scripts": {
     "postinstall": "bower install"
