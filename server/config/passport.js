@@ -8,12 +8,12 @@ var User = mongoose.model('User');
 
 module.exports = function(){
 
-    passport.use(new LocalStrategy(
+    passport.use('local', new LocalStrategy(
         function(username, password, done){
             console.log('inside passport');
             User.findOne({email: username}).exec(function(err, user){
                 if(user){
-                    return done(done, null);
+                    return done(null, user);
                 }
                 return done(null, false);
             });

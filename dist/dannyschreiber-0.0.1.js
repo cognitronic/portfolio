@@ -60,6 +60,32 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap'])
                 }
             }
         })
+        .state('blog', {
+            url: '/blog',
+            views: {
+                'main-container@': {
+                    templateUrl: '/src/blog/index.html',
+                    controller: 'BlogController'
+                },
+                'header@': {
+                    templateUrl: '/src/core/layout/header.html',
+                    controller: 'HeaderController'
+                }
+            }
+        })
+        .state('contact', {
+            url: '/contact',
+            views: {
+                'main-container@': {
+                    templateUrl: '/src/contact/index.html',
+                    controller: 'ContactController'
+                },
+                'header@': {
+                    templateUrl: '/src/core/layout/header.html',
+                    controller: 'HeaderController'
+                }
+            }
+        })
         .state('login', {
             url: '/login',
             views: {
@@ -87,6 +113,26 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap'])
     angular.module('danny').controller('AboutController', [AboutController]);
 })();
 /**
+ * Created by Danny Schreiber on 1/14/2015.
+ */
+
+(function(){ 'use strict';
+    var BlogController = function($scope){
+
+    };
+    angular.module('danny').controller('BlogController', [BlogController]);
+})();
+/**
+ * Created by Danny Schreiber on 1/14/2015.
+ */
+
+(function(){ 'use strict';
+    var ContactController = function($scope){
+
+    };
+    angular.module('danny').controller('ContactController', ['$scope', ContactController]);
+})();
+/**
  * Created by Danny Schreiber on 1/7/2015.
  */
 (function(){ 'use strict';
@@ -112,7 +158,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap'])
  */
 
 (function(){ 'use strict';
-    var LoginController = function($scope, $http){
+    var LoginController = function($scope, $http, $state){
         var _user = {};
 
         var _login = function(){
@@ -121,6 +167,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap'])
                 console.log(response);
                 if(response.data.success){
                     console.log('logged in!');
+                    $state.go('blog');
                 } else {
                     console.log('log in failed');
                 }
@@ -133,7 +180,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap'])
         };
     };
 
-    angular.module('danny').controller('LoginController',['$scope', '$http',LoginController]);
+    angular.module('danny').controller('LoginController',['$scope', '$http', '$state',LoginController]);
 })();
 /**
  * @author Danny Schreiber on 8/12/2014.

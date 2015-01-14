@@ -18,7 +18,7 @@ exports.authenticate = function(req, res, next){
             if(err){
                 return next(err);
             }
-            res.send({success:true, user: user});
+            return res.send({success:true, user: user});
         });
     });
 

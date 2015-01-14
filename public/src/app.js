@@ -52,6 +52,32 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap'])
                 }
             }
         })
+        .state('blog', {
+            url: '/blog',
+            views: {
+                'main-container@': {
+                    templateUrl: '/src/blog/index.html',
+                    controller: 'BlogController'
+                },
+                'header@': {
+                    templateUrl: '/src/core/layout/header.html',
+                    controller: 'HeaderController'
+                }
+            }
+        })
+        .state('contact', {
+            url: '/contact',
+            views: {
+                'main-container@': {
+                    templateUrl: '/src/contact/index.html',
+                    controller: 'ContactController'
+                },
+                'header@': {
+                    templateUrl: '/src/core/layout/header.html',
+                    controller: 'HeaderController'
+                }
+            }
+        })
         .state('login', {
             url: '/login',
             views: {

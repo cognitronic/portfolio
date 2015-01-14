@@ -3,7 +3,7 @@
  */
 
 (function(){ 'use strict';
-    var LoginController = function($scope, $http){
+    var LoginController = function($scope, $http, $state){
         var _user = {};
 
         var _login = function(){
@@ -12,6 +12,7 @@
                 console.log(response);
                 if(response.data.success){
                     console.log('logged in!');
+                    $state.go('blog');
                 } else {
                     console.log('log in failed');
                 }
@@ -24,5 +25,5 @@
         };
     };
 
-    angular.module('danny').controller('LoginController',['$scope', '$http',LoginController]);
+    angular.module('danny').controller('LoginController',['$scope', '$http', '$state',LoginController]);
 })();

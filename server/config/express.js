@@ -11,9 +11,9 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 module.exports = function(app, config){
-    app.set('views', config.rootPath + 'server/views');
-    app.set('view engine', 'jade');
-    app.use(logger('dev'));
+    //app.set('views', config.rootPath + 'server/views');
+    //app.set('view engine', 'html');
+    app.use(express.static(path.join(config.rootPath, '/public')));
     app.use(cookieParser());
     app.use(bodyParser.urlencoded({
         extended: true
@@ -25,5 +25,5 @@ module.exports = function(app, config){
     }));
     app.use(passport.initialize());
     app.use(passport.session());
-    app.use(express.static(path.join(config.rootPath, '/public')));
+    app.use(logger('dev'));
 };
