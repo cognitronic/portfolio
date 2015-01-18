@@ -21,6 +21,7 @@ module.exports = function (grunt) {
                 'public/vendors/angular-ui-router/release/angular-ui-router.js',
                 'public/vendors/angular-mocks/angular-mocks.js',
                 'public/vendors/lodash/dist/lodash.js',
+                'public/vendors/ram-utilities/dist/ram-utilities-0.0.1.js',
                 'public/src/app.js',
                 'public/src/**/*.spec.js'
             ]

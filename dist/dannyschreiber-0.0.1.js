@@ -161,13 +161,14 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap'])
     var LoginController = function($scope, $http, $state){
         var _user = {};
 
-        var _login = function(){
+        var _login = function(username, password){
             console.log($scope.model.user);
-            $http.post('/api/login', {username: $scope.model.user.email, password: $scope.model.user.password}).then(function(response){
+            $http.post('/api/login', {username: username, password: password}).then(function(response){
                 console.log(response);
                 if(response.data.success){
                     console.log('logged in!');
-                    $state.go('blog');
+                    //$state.go('blog');
+                    $scope.loggedIn = true;
                 } else {
                     console.log('log in failed');
                 }

@@ -3,27 +3,33 @@
  */
 
 (function(){ 'use strict';
-    var LoginController = function($scope, $http, $state){
+    var LoginController = function($scope, $state, RestService){
         var _user = {};
+        var _message = 'hello';
 
-        var _login = function(){
-            console.log($scope.model.user);
-            $http.post('/api/login', {username: $scope.model.user.email, password: $scope.model.user.password}).then(function(response){
+        var _login = function(username, password){
+            var _success = function(response){
+                console.log(response.data);
+                _message = response.data.success;
+                _user = response.data.user;
+                $state.go('blog');
+            };
+
+            var _error = function(response){
+                console.log('error:');
+                _message = response.data.success;
                 console.log(response);
-                if(response.data.success){
-                    console.log('logged in!');
-                    $state.go('blog');
-                } else {
-                    console.log('log in failed');
-                }
-            });
+            };
+
+            RestService.postData('/api/login', null, null, {username: username, password: password}, _success, 'Invalid login, please try again', _error, {showLoader: true});
         };
 
         $scope.model = {
             login: _login,
-            user: _user
+            user: _user,
+            message: _message
         };
     };
 
-    angular.module('danny').controller('LoginController',['$scope', '$http', '$state',LoginController]);
+    angular.module('danny').controller('LoginController',['$scope', '$state', 'RestService',LoginController]);
 })();

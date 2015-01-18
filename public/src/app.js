@@ -2,7 +2,7 @@
  * Created by Danny Schreiber on 1/4/2015.
  */
 
-angular.module('danny', [ 'ui.router', 'ui.bootstrap'])
+angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui'])
 
 .config(function($httpProvider, $stateProvider, $urlRouterProvider){
 
