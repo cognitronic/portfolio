@@ -2,39 +2,85 @@
  * Created by Danny Schreiber on 1/16/2015.
  */
 describe('LoginController', function(){
-    var scope, $httpBackend, controller, $state, restService, redirect;
+    var $rootScope, $scope, $httpBackend, controller, $state, loginServiceMock, LoginService, $q;
+
+
+
     beforeEach(function(){
-        module('danny');
+        module('danny', function($provide){
+            $provide.value('LoginService', {
+                authenticateUser: function(){
+                    return {
+                        then: function(callback){
+                            callback([{
+                                data: {
+                                    isAuthenticated: true,
+                                    user: {
+                                        username: 'danny@ravenartmedia.com',
+                                        password: 'password'
+                                    }
+                                }
+                            }]);
+                        }
+                    };
+                }
+            });
+        });
+
+        inject(function(_$httpBackend_, _$controller_, _$rootScope_, _$state_, _$templateCache_, _$q_, _LoginService_){
+            $httpBackend = _$httpBackend_;
+            LoginService = _LoginService_;
+            $q = _$q_;
+            $state = _$state_;
+            $rootScope = _$rootScope_;
+            $scope = _$rootScope_.$new();
+            controller = _$controller_('LoginController', {
+                $scope: $scope
+            });
+            _$templateCache_.put('/src/about/index.html', '');
+            _$templateCache_.put('/src/core/layout/header.html', '');
+            _$templateCache_.put('/src/blog/index.html', '');
+        });
     });
 
-    beforeEach(module(function($provide){
-        $provide.value('RestService', {});
-    }));
-
-    beforeEach(inject(function(_$controller_, _$rootScope_, _$httpBackend_, _$state_, _RestService_){
-        $httpBackend = _$httpBackend_;
-        $state = _$state_;
-        restService = _RestService_;
-        redirect = spyOn(_$state_, 'go');
-        scope = _$rootScope_.$new();
-        controller = _$controller_('LoginController', {
-            $scope: scope,
-            RestService: restService,
-            $state: $state
-        });
-    }));
+    afterEach(function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+    });
 
     describe('successfully logging in', function(){
 
-       it('should redirect to /blog when authenticated', function(){
-            scope.model.user = {"username":"danny@ravenartmedia.com", "password":"changeme"};
-            expect(scope.model.user.username).toEqual('danny@ravenartmedia.com');
+       it('should have a current $state of blog', function(){
+           var state = 'blog';
+           var user = {username: 'danny@ravenartmedia.com', password: 'changeme'};
+           spyOn(LoginService, 'authenticateUser').andCallThrough();
+           $scope.model.login(user);
+           $rootScope.$digest();
 
-           $httpBackend.expectPOST('/api/login', scope.model.user);
-           scope.model.login();
-           scope.$apply();
-           scope.$digest();
-           $httpBackend.flush();
+           expect($state.current.name).toBe(state);
        });
+
+        it('should have the isAuthenticated property set to true', function(){
+
+        });
+
+        it('should have the hydrated user object', function(){
+
+        });
+
+    });
+
+    describe('unsuccessful login', function(){
+       it('should have a current $state of login', function(){
+
+       }) ;
+
+        it('should have the isAuthenticated property set to false', function(){
+
+        });
+
+        it('should have a null user object', function(){
+
+        });
     });
 });

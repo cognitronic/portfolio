@@ -26,11 +26,11 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui'])
             views: {
                 'header': {
                     templateUrl: '/src/core/layout/header.html',
-                    controller: 'HeaderController'
+                    controllerAs: 'HeaderController'
                 },
                 'footer': {
                     templateUrl: '/src/core/layout/footer.html',
-                    controller: 'FooterController'
+                    controllerAs: 'FooterController'
                 }
             },
             resolve:{
@@ -44,11 +44,11 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui'])
             views: {
                 'main-container@': {
                     templateUrl: '/src/about/index.html',
-                    controller: 'AboutController'
+                    controllerAs: 'AboutController'
                 },
                 'header@': {
                     templateUrl: '/src/core/layout/header.html',
-                    controller: 'HeaderController'
+                    controllerAs: 'HeaderController'
                 }
             }
         })
@@ -57,11 +57,11 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui'])
             views: {
                 'main-container@': {
                     templateUrl: '/src/blog/index.html',
-                    controller: 'BlogController'
+                    controllerAs: 'BlogController'
                 },
                 'header@': {
                     templateUrl: '/src/core/layout/header.html',
-                    controller: 'HeaderController'
+                    controllerAs: 'HeaderController'
                 }
             }
         })
@@ -70,11 +70,11 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui'])
             views: {
                 'main-container@': {
                     templateUrl: '/src/contact/index.html',
-                    controller: 'ContactController'
+                    controllerAs: 'ContactController'
                 },
                 'header@': {
                     templateUrl: '/src/core/layout/header.html',
-                    controller: 'HeaderController'
+                    controllerAs: 'HeaderController'
                 }
             }
         })
@@ -83,11 +83,11 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui'])
             views: {
                 'main-container@': {
                     templateUrl: '/src/core/security/login.html',
-                    controller: 'LoginController'
+                    controllerAs: 'LoginController'
                 },
                 'header@': {
                     templateUrl: '/src/core/layout/header.html',
-                    controller: 'HeaderController'
+                    controllerAs: 'HeaderController'
                 }
             }
         });

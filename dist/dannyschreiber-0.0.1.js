@@ -10,7 +10,7 @@ angular.module('danny.ui',
  * Created by Danny Schreiber on 1/4/2015.
  */
 
-angular.module('danny', [ 'ui.router', 'ui.bootstrap'])
+angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui'])
 
 .config(function($httpProvider, $stateProvider, $urlRouterProvider){
 
@@ -123,6 +123,15 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap'])
     angular.module('danny').controller('BlogController', [BlogController]);
 })();
 /**
+ * Created by Danny Schreiber on 1/17/2015.
+ */
+(function(){ 'use strict';
+    var BlogController = function($scope){
+
+    };
+    angular.module('danny').controller('BlogController', ['$scope', BlogController]);
+})();
+/**
  * Created by Danny Schreiber on 1/14/2015.
  */
 
@@ -158,115 +167,55 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap'])
  */
 
 (function(){ 'use strict';
-    var LoginController = function($scope, $http, $state){
-        var _user = {};
+    var LoginController = function($scope, $state, LoginService){
+        var _user;
+        var _message;
 
-        var _login = function(username, password){
-            console.log($scope.model.user);
-            $http.post('/api/login', {username: username, password: password}).then(function(response){
-                console.log(response);
-                if(response.data.success){
-                    console.log('logged in!');
-                    //$state.go('blog');
-                    $scope.loggedIn = true;
-                } else {
-                    console.log('log in failed');
-                }
+        var _login = function login(user){
+            var response = {};
+            LoginService.authenticateUser(user).then(function(data){
+                response.isAuthenticated = data.success;
+                response.message = 'logged in successfully!';
+                response.user = data.user;
+                $state.go('blog');
+            }, function(reason){
+                response.isAuthenticated = false;
+                response.user = null;
+                response.message = reason;
+                $state.go('login');
             });
         };
 
         $scope.model = {
             login: _login,
-            user: _user
+            user: _user,
+            message: _message
         };
     };
 
-    angular.module('danny').controller('LoginController',['$scope', '$http', '$state',LoginController]);
+    angular.module('danny').controller('LoginController',['$scope', '$state', 'LoginService',LoginController]);
 })();
 /**
- * @author Danny Schreiber on 8/12/2014.
+ * Created by Danny Schreiber on 1/20/2015.
  */
 
-
-
 (function(){ 'use strict';
-    /**
-     * @constructor CacheService
-     * @classdesc The cache service is a wrapper for the sessionStorage object and allows for client side state management.
-     *
-     */
-    var CacheService = function(){
-
-        /**
-         * Constants representing the available items in the cache.  This allows for using dot notation.
-         *
-         * @namespace
-         * @property {object} UserInfo - global user info
-         * @property {object} UserInfo.userData - Logged in user object
-         * @memberOf CacheService
-         */
-        var _cacheItems = {
-            UserInfo: {
-                userData: 'userData',
-                userId: 'userId',
-                browserSupportChecked: 'browserSupportChecked'
-            }
+    var LoginService = function(RestService, $state, $q){
+        var _authenticateUser = function(user){
+            var response = {};
+            var deferred  = $q.defer();
+            RestService.postData('/api/login', null, null, {username: user.username, password: user.password}, {showLoader: true})
+                .then(function(data){
+                    deferred.resolve(data);
+            }, function(reason){
+                    deferred.reject(reason);
+                });
+            return deferred.promise;
         };
-
-        /**
-         * Inserts an item into session storage object
-         * @param {key} string name
-         * @param {val} object value that will be stringified and stored
-         * @function setItem
-         * @memberOf CacheService
-         */
-        var _setItem = function(key, val) {
-            sessionStorage.setItem(key, JSON.stringify(val));
-        };
-
-        /**
-         * Retrieves an item from the cache
-         * @param {item} string name of the key
-         * @function getItem
-         * @memberOf CacheService
-         */
-        var _getItem = function(item) {
-            if(angular.fromJson){
-                return angular.fromJson(sessionStorage.getItem(item));
-            }
-        };
-
-        /**
-         * Removes an item from the cache
-         *
-         * @param {item} string name of the key
-         * @function removeItem
-         * @memberOf CacheService
-         */
-        var _removeItem = function(item) {
-            sessionStorage.removeItem(item);
-        };
-
-        /**
-         *Clears all data from the local sessionStorage object
-         *
-         * @function clearCache
-         * @memberOf CacheService
-         */
-        var _clearCache = function(){
-            sessionStorage.clear();
-        };
-
-
 
         return {
-            setItem: _setItem,
-            getItem: _getItem,
-            removeItem: _removeItem,
-            Items: _cacheItems,
-            clearCache: _clearCache
+            authenticateUser: _authenticateUser
         };
     };
-
-    angular.module('danny.ui.cache.service', []).factory('CacheService', [CacheService]);
+    angular.module('danny').factory('LoginService', ['RestService', '$state', '$q', LoginService]);
 })();

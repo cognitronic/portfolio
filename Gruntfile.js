@@ -16,12 +16,21 @@ module.exports = function (grunt) {
         meta: {
             jsFilesForTesting: [
                 'public/vendors/jquery/jquery.js',
+                'public/vendors/jasmine-jquery/lib/jasmine-jquery.js',
                 'public/vendors/angular/angular.js',
                 'public/vendors/angular-bootstrap/ui-bootstrap-tpls.js',
                 'public/vendors/angular-ui-router/release/angular-ui-router.js',
                 'public/vendors/angular-mocks/angular-mocks.js',
                 'public/vendors/lodash/dist/lodash.js',
                 'public/vendors/ram-utilities/dist/ram-utilities-0.0.1.js',
+                'public/fixtures/setup.js',
+                'public/fixtures/**/*.js',
+                {
+                    pattern: 'public/fixtures/**/*.json',
+                    watched: true,
+                    served: true,
+                    included: false
+                },
                 'public/src/app.js',
                 'public/src/**/*.spec.js'
             ]

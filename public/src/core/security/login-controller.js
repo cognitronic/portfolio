@@ -3,25 +3,23 @@
  */
 
 (function(){ 'use strict';
-    var LoginController = function($scope, $state, RestService){
-        var _user = {};
-        var _message = 'hello';
+    var LoginController = function($scope, $state, LoginService){
+        var _user;
+        var _message;
 
-        var _login = function(username, password){
-            var _success = function(response){
-                console.log(response.data);
-                _message = response.data.success;
-                _user = response.data.user;
+        var _login = function login(user){
+            var response = {};
+            LoginService.authenticateUser(user).then(function(data){
+                response.isAuthenticated = data.success;
+                response.message = 'logged in successfully!';
+                response.user = data.user;
                 $state.go('blog');
-            };
-
-            var _error = function(response){
-                console.log('error:');
-                _message = response.data.success;
-                console.log(response);
-            };
-
-            RestService.postData('/api/login', null, null, {username: username, password: password}, _success, 'Invalid login, please try again', _error, {showLoader: true});
+            }, function(reason){
+                response.isAuthenticated = false;
+                response.user = null;
+                response.message = reason;
+                $state.go('login');
+            });
         };
 
         $scope.model = {
@@ -31,5 +29,5 @@
         };
     };
 
-    angular.module('danny').controller('LoginController',['$scope', '$state', 'RestService',LoginController]);
+    angular.module('danny').controller('LoginController',['$scope', '$state', 'LoginService',LoginController]);
 })();
