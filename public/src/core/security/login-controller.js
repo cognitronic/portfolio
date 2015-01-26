@@ -3,7 +3,8 @@
  */
 
 (function(){ 'use strict';
-    var LoginController = function($scope, $state, LoginService){
+    var LoginController = function($state, LoginService){
+        var vm = this;
         var _user;
         var _message;
 
@@ -22,12 +23,12 @@
             });
         };
 
-        $scope.model = {
+        return {
             login: _login,
             user: _user,
             message: _message
         };
     };
 
-    angular.module('danny').controller('LoginController',['$scope', '$state', 'LoginService',LoginController]);
+    angular.module('danny.ui.login').controller('LoginController',['$state', 'LoginService',LoginController]);
 })();

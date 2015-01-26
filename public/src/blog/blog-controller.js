@@ -7,7 +7,8 @@
         var _posts = [];
         var _selectedPost = null;
 
-        vm = {
+
+        return  {
             posts: _posts,
             selectedPost: _selectedPost
         };

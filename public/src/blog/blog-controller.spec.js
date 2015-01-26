@@ -34,7 +34,6 @@ describe('Blog Controller: ', function(){
     });
 
     describe('when getting all posts', function(){
-
         it('the posts object should not be null', function(){
             expect($scope.vm.posts).not.toBeNull();
             expect($scope.vm.posts.length).toBe(3);

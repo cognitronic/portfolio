@@ -2,7 +2,7 @@
  * Created by Danny Schreiber on 1/4/2015.
  */
 
-angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui'])
+angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'danny.ui'])
 
 .config(function($httpProvider, $stateProvider, $urlRouterProvider){
 
@@ -82,8 +82,19 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui'])
             url: '/login',
             views: {
                 'main-container@': {
-                    templateUrl: '/src/core/security/login.html',
-                    controllerAs: 'LoginController'
+                    templateUrl: '/src/core/security/login.html'
+                },
+                'header@': {
+                    templateUrl: '/src/core/layout/header.html',
+                    controllerAs: 'HeaderController'
+                }
+            }
+        })
+        .state('change-password', {
+            url: '/change-password',
+            views: {
+                'main-container@': {
+                    templateUrl: '/src/core/security/change-password.html'
                 },
                 'header@': {
                     templateUrl: '/src/core/layout/header.html',
