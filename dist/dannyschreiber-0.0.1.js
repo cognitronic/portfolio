@@ -97,7 +97,8 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
             url: '/login',
             views: {
                 'main-container@': {
-                    templateUrl: '/src/core/security/login.html'
+                    templateUrl: '/src/core/security/login.html',
+                    controller: 'AuthenticationController as auth'
                 },
                 'header@': {
                     templateUrl: '/src/core/layout/header.html',
@@ -189,15 +190,11 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                     $state.go('about');
                 }
             };
-
-
-
         };
 
         var link = function($scope, $element, $attrs, $controller){
 
         };
-
 
         return{
           restrict: 'EA',
@@ -231,34 +228,26 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                 '</div>' +
                 '</div>' +
                 '</div>' +
-                '<div class="row">' +
-                '<div class="col-md-6 col-xs-12">' +
-                '<div>' +
-                '<label for="email">Email:</label>' +
-                '<input type="email" id="email" ng-model="vm.username" class="required" name="email" autofocus />' +
+                '<div class="row form-horizontal">' +
+                '<div class="form-group col-md-6 col-xs-12">' +
+                '<label class="control-label row-label" for="email">Email:</label>' +
+                '<input type="email" id="email" ng-model="vm.username" tabindex="1" class="form-control required" name="email" autofocus />' +
                 '</div>' +
+                '<div class="form-group col-md-6 col-xs-12">' +
+                '<label class="control-label row-label" for="pwd">Current Password:</label>' +
+                '<input type="password" id="pwd" class="form-control required" tabindex="3" ng-model="vm.currentPassword" name="pwd"/>' +
                 '</div>' +
-                '<div class="col-md-6 col-xs-12">' +
-                '<div>' +
-                '<label for="pwd">Current Password:</label>' +
-                '<input type="password" id="pwd" class="required" ng-model="vm.currentPassword" name="pwd"/>' +
+                '<div class="form-group col-md-6 col-xs-12">' +
+                '<label class="control-label row-label" for="pwd">New Password:</label>' +
+                '<input type="password" id="pwd" class="form-control required" tabindex="2" ng-model="vm.newPassword" name="pwd"/>' +
                 '</div>' +
+                '<div class="form-group col-md-6 col-xs-12">' +
+                '<label class="control-label row-label" for="pwd">Confirm Password:</label>' +
+                '<input type="password" id="pwd" class="form-control required" tabindex="4" ng-model="vm.confirmPassword" name="pwd"/>' +
                 '</div>' +
-                '<div class="col-md-6 col-xs-12">' +
-                '<div>' +
-                '<label for="pwd">New Password:</label>' +
-                '<input type="password" id="pwd" class="required" ng-model="vm.newPassword" name="pwd"/>' +
+                '<div class="form-group col-md-6 col-xs-12">' +
+                '<p><button class="form-control btn btn-default" ng-disabled="vm.isFormInvalid" ng-click="vm.submit()">Submit</button></p>' +
                 '</div>' +
-                '</div>' +
-                '<div class="col-md-6 col-xs-12">' +
-                '<div>' +
-                '<label for="pwd">Confirm Password:</label>' +
-                '<input type="password" id="pwd" class="required" ng-model="vm.confirmPassword" name="pwd"/>' +
-                '</div>' +
-                '</div>' +
-                '<p>' +
-                '<button class="btn btn-default" ng-disabled="vm.isFormInvalid" ng-click="vm.submit()">Login</button>' +
-                '</p>' +
                 '</div>' +
                 '</div>');
         }]);
@@ -267,51 +256,35 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
  * Created by Danny Schreiber on 1/26/2015.
  */
 (function(){ 'use strict';
-    var ramLogin = function($templateCache){
-        console.log($templateCache.get('template/components/login.tpl.html'));
+    var ramLogin = function($state){
 
-        var LoginController = function($state, LoginService) {
-            var vm = this;
-            vm.user = {};
+        var link = function($scope, $element){
 
-            vm.login = function login(user) {
-                var response = {};
-                LoginService.authenticateUser(user).then(function (data) {
-                    response.isAuthenticated = data.success;
-                    response.message = 'logged in successfully!';
-                    response.user = data.user;
-                    $state.go('blog');
-                }, function (reason) {
-                    response.isAuthenticated = false;
-                    response.user = null;
-                    response.message = reason;
-                    $state.go('change-password');
-                });
-            };
+            $scope.user = {};
+            $element.find('#login').bind('click', function(evt){
+                if($scope.onSubmit && typeof $scope.onSubmit === 'function'){
+                    $scope.onSubmit({user: $scope.user})
+                        .then(function(data){
+                            if(data.success){
+                                $state.go('blog');
+                            }
+                        });
+                }
+            });
         };
-
-        var link = function($scope, $element, $attrs, $controller ){
-
-        };
-
 
         return{
             restrict: 'EA',
             transclude: true,
             scope: {
-                login: '&',
-                user: '@',
-                showChangePassword: '@'
+                onSubmit: '&ramOnSubmit'
             },
             templateUrl: 'template/components/login.tpl.html',
-            controllerAs: 'vm',
-            controller: LoginController,
-            bindToController: true,
             link: link
         };
     };
 
-    angular.module('danny.ui.login',[]).directive('ramLogin', ['$templateCache', ramLogin]);
+    angular.module('danny.ui.login',[]).directive('ramLogin', [ '$state', ramLogin]);
 
     angular.module('template/components/login.tpl.html', [])
         .run(['$templateCache', function($templateCache){
@@ -320,14 +293,14 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                     '<div class="col-md-4 col-md-offset-5 col-xs-12 col-xs-offset-2">' +
                         '<div>' +
                             '<label for="email">Email:</label>' +
-                            '<input type="email" id="email" ng-model="vm.user.username" class="required" name="email" autofocus />' +
+                            '<input type="email" id="email" ng-model="user.username" class="required" name="email" autofocus />' +
                         '</div>' +
                         '<div>' +
                             '<label for="pwd">Password:</label>' +
-                            '<input type="password" id="pwd" class="required" ng-model="vm.user.password" name="pwd"/>' +
+                            '<input type="password" id="pwd" class="required" ng-model="user.password" name="pwd"/>' +
                         '</div>' +
                         '<p>' +
-                            '<button class="btn btn-default" ng-click="vm.login(vm.user)">Login</button>' +
+                            '<button id="login" class="btn btn-default" ng-click="onSubmit(user)">Login</button>' +
                         '</p>' +
                     '</div>' +
                 '</div>');
@@ -369,34 +342,37 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
  */
 
 (function(){ 'use strict';
-    var LoginController = function($state, LoginService){
-        var vm = this;
-        var _user;
-        var _message;
+    var AuthenticationController = function($state, LoginService, $q){
+        var auth = this;
+        var _message = 'turd';
+        var _user = {};
 
-        var _login = function login(user){
+        var _onSubmit = function(user){
             var response = {};
-            LoginService.authenticateUser(user).then(function(data){
-                response.isAuthenticated = data.success;
-                response.message = 'logged in successfully!';
-                response.user = data.user;
-                $state.go('blog');
-            }, function(reason){
-                response.isAuthenticated = false;
-                response.user = null;
-                response.message = reason;
-                $state.go('login');
-            });
+            if(user){
+                //LoginService.authenticateUser(user).then(function (data) {
+                //    response.isAuthenticated = data.success;
+                //    response.message = 'logged in successfully!';
+                //    response.user = data.user;
+                //    $state.go('blog');
+                //}, function (reason) {
+                //    response.isAuthenticated = false;
+                //    response.user = null;
+                //    response.message = reason;
+                //    // $state.go('login');
+                //});
+                return LoginService.authenticateUser(user);
+            }
         };
 
         return {
-            login: _login,
-            user: _user,
-            message: _message
+            onSubmit: _onSubmit,
+            message: _message,
+            user: _user
         };
     };
 
-    angular.module('danny.ui.login').controller('LoginController',['$state', 'LoginService',LoginController]);
+    angular.module('danny').controller('AuthenticationController',['$state', 'LoginService', '$q',AuthenticationController]);
 })();
 /**
  * Created by Danny Schreiber on 1/20/2015.

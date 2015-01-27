@@ -2,51 +2,35 @@
  * Created by Danny Schreiber on 1/26/2015.
  */
 (function(){ 'use strict';
-    var ramLogin = function($templateCache){
-        console.log($templateCache.get('template/components/login.tpl.html'));
+    var ramLogin = function($state){
 
-        var LoginController = function($state, LoginService) {
-            var vm = this;
-            vm.user = {};
+        var link = function($scope, $element){
 
-            vm.login = function login(user) {
-                var response = {};
-                LoginService.authenticateUser(user).then(function (data) {
-                    response.isAuthenticated = data.success;
-                    response.message = 'logged in successfully!';
-                    response.user = data.user;
-                    $state.go('blog');
-                }, function (reason) {
-                    response.isAuthenticated = false;
-                    response.user = null;
-                    response.message = reason;
-                    $state.go('change-password');
-                });
-            };
+            $scope.user = {};
+            $element.find('#login').bind('click', function(evt){
+                if($scope.onSubmit && typeof $scope.onSubmit === 'function'){
+                    $scope.onSubmit({user: $scope.user})
+                        .then(function(data){
+                            if(data.success){
+                                $state.go('blog');
+                            }
+                        });
+                }
+            });
         };
-
-        var link = function($scope, $element, $attrs, $controller ){
-
-        };
-
 
         return{
             restrict: 'EA',
             transclude: true,
             scope: {
-                login: '&',
-                user: '@',
-                showChangePassword: '@'
+                onSubmit: '&ramOnSubmit'
             },
             templateUrl: 'template/components/login.tpl.html',
-            controllerAs: 'vm',
-            controller: LoginController,
-            bindToController: true,
             link: link
         };
     };
 
-    angular.module('danny.ui.login',[]).directive('ramLogin', ['$templateCache', ramLogin]);
+    angular.module('danny.ui.login',[]).directive('ramLogin', [ '$state', ramLogin]);
 
     angular.module('template/components/login.tpl.html', [])
         .run(['$templateCache', function($templateCache){
@@ -55,14 +39,14 @@
                     '<div class="col-md-4 col-md-offset-5 col-xs-12 col-xs-offset-2">' +
                         '<div>' +
                             '<label for="email">Email:</label>' +
-                            '<input type="email" id="email" ng-model="vm.user.username" class="required" name="email" autofocus />' +
+                            '<input type="email" id="email" ng-model="user.username" class="required" name="email" autofocus />' +
                         '</div>' +
                         '<div>' +
                             '<label for="pwd">Password:</label>' +
-                            '<input type="password" id="pwd" class="required" ng-model="vm.user.password" name="pwd"/>' +
+                            '<input type="password" id="pwd" class="required" ng-model="user.password" name="pwd"/>' +
                         '</div>' +
                         '<p>' +
-                            '<button class="btn btn-default" ng-click="vm.login(vm.user)">Login</button>' +
+                            '<button id="login" class="btn btn-default" ng-click="onSubmit(user)">Login</button>' +
                         '</p>' +
                     '</div>' +
                 '</div>');

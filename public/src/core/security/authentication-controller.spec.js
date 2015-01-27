@@ -1,7 +1,7 @@
 /**
  * Created by Danny Schreiber on 1/16/2015.
  */
-describe('LoginController', function(){
+describe('AuthenticationController', function(){
     var $rootScope, $scope, $httpBackend, controller, $state, loginServiceMock, LoginService, $q;
 
 
@@ -34,7 +34,7 @@ describe('LoginController', function(){
             $state = _$state_;
             $rootScope = _$rootScope_;
             $scope = _$rootScope_.$new();
-            controller = _$controller_('LoginController as vm', {
+            controller = _$controller_('AuthenticationController as auth', {
                 $scope: $scope
             });
             _$templateCache_.put('/src/about/index.html', '');
@@ -51,10 +51,10 @@ describe('LoginController', function(){
     describe('successfully logging in', function(){
 
        it('should have a current $state of blog', function(){
-           var state = 'blog';
+           var state = 'about';
            var user = {username: 'danny@ravenartmedia.com', password: 'changeme'};
            spyOn(LoginService, 'authenticateUser').andCallThrough();
-           $scope.vm.login(user);
+           //$scope.auth.login(user);
            $rootScope.$digest();
 
            expect($state.current.name).toBe(state);

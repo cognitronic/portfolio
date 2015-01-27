@@ -12,7 +12,7 @@ exports.authenticate = function(req, res, next){
             return next(err);
         }
         if(!user){
-            res.send({success: false});
+            res.send({success: false, message: 'Incorrect username/password'});
         }
         req.logIn(user, function(err){
             if(err){

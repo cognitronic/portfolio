@@ -82,7 +82,8 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
             url: '/login',
             views: {
                 'main-container@': {
-                    templateUrl: '/src/core/security/login.html'
+                    templateUrl: '/src/core/security/login.html',
+                    controller: 'AuthenticationController as auth'
                 },
                 'header@': {
                     templateUrl: '/src/core/layout/header.html',

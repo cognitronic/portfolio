@@ -30,15 +30,11 @@
                     $state.go('about');
                 }
             };
-
-
-
         };
 
         var link = function($scope, $element, $attrs, $controller){
 
         };
-
 
         return{
           restrict: 'EA',
@@ -72,34 +68,26 @@
                 '</div>' +
                 '</div>' +
                 '</div>' +
-                '<div class="row">' +
-                '<div class="col-md-6 col-xs-12">' +
-                '<div>' +
-                '<label for="email">Email:</label>' +
-                '<input type="email" id="email" ng-model="vm.username" class="required" name="email" autofocus />' +
+                '<div class="row form-horizontal">' +
+                '<div class="form-group col-md-6 col-xs-12">' +
+                '<label class="control-label row-label" for="email">Email:</label>' +
+                '<input type="email" id="email" ng-model="vm.username" tabindex="1" class="form-control required" name="email" autofocus />' +
                 '</div>' +
+                '<div class="form-group col-md-6 col-xs-12">' +
+                '<label class="control-label row-label" for="pwd">Current Password:</label>' +
+                '<input type="password" id="pwd" class="form-control required" tabindex="3" ng-model="vm.currentPassword" name="pwd"/>' +
                 '</div>' +
-                '<div class="col-md-6 col-xs-12">' +
-                '<div>' +
-                '<label for="pwd">Current Password:</label>' +
-                '<input type="password" id="pwd" class="required" ng-model="vm.currentPassword" name="pwd"/>' +
+                '<div class="form-group col-md-6 col-xs-12">' +
+                '<label class="control-label row-label" for="pwd">New Password:</label>' +
+                '<input type="password" id="pwd" class="form-control required" tabindex="2" ng-model="vm.newPassword" name="pwd"/>' +
                 '</div>' +
+                '<div class="form-group col-md-6 col-xs-12">' +
+                '<label class="control-label row-label" for="pwd">Confirm Password:</label>' +
+                '<input type="password" id="pwd" class="form-control required" tabindex="4" ng-model="vm.confirmPassword" name="pwd"/>' +
                 '</div>' +
-                '<div class="col-md-6 col-xs-12">' +
-                '<div>' +
-                '<label for="pwd">New Password:</label>' +
-                '<input type="password" id="pwd" class="required" ng-model="vm.newPassword" name="pwd"/>' +
+                '<div class="form-group col-md-6 col-xs-12">' +
+                '<p><button class="form-control btn btn-default" ng-disabled="vm.isFormInvalid" ng-click="vm.submit()">Submit</button></p>' +
                 '</div>' +
-                '</div>' +
-                '<div class="col-md-6 col-xs-12">' +
-                '<div>' +
-                '<label for="pwd">Confirm Password:</label>' +
-                '<input type="password" id="pwd" class="required" ng-model="vm.confirmPassword" name="pwd"/>' +
-                '</div>' +
-                '</div>' +
-                '<p>' +
-                '<button class="btn btn-default" ng-disabled="vm.isFormInvalid" ng-click="vm.submit()">Login</button>' +
-                '</p>' +
                 '</div>' +
                 '</div>');
         }]);

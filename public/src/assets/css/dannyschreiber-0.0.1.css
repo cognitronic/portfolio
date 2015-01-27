@@ -2961,3 +2961,13 @@ a img.aligncenter {
     padding: .4em .4em .2em;
 }
 .alignleft:first-child, .alignright:first-child { margin-top:1.2em; }
+
+/*
+    app styles
+    --------------------------------------------------------------------
+*/
+
+.change-password-container{
+    width: 700px;
+    margin: 0 auto;
+}

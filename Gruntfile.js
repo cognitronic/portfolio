@@ -128,7 +128,15 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', ['karma:development']);
-    grunt.registerTask('build',
+    grunt.registerTask('build', [
+        'jshint',
+        'concat',
+        'concat:dist_css',
+        'uglify',
+        'cssmin:dist_css',
+        'copy:dist'
+    ]);
+    grunt.registerTask('build_with_tests',
         [
             'jshint',
             'karma:development',
