@@ -9,13 +9,23 @@ var User = mongoose.model('User');
 module.exports = function(){
 
     passport.use('local', new LocalStrategy(
-        function(username, password, done){
+        function(username, password, callback){
             console.log('inside passport');
             User.findOne({email: username}).exec(function(err, user){
-                if(user){
-                    return done(null, user);
-                }
-                return done(null, false);
+                if (err) { return callback(err); }
+                // No user found with that username
+                if (!user) { return callback(null, false); }
+
+                // Make sure the password is correct
+                user.verifyPassword(password, function(err, isMatch) {
+                    if (err) { return callback(err); }
+
+                    // Password did not match
+                    if (!isMatch) { return callback(null, false); }
+
+                    // Success
+                    return callback(null, user);
+                });
             });
         }
     ));

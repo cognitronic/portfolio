@@ -25,5 +25,5 @@ module.exports = function(app, config){
     }));
     app.use(passport.initialize());
     app.use(passport.session());
-    app.use(logger('dev'));
+    app.use(logger('development'));
 };

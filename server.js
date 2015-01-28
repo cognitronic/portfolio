@@ -23,4 +23,5 @@ require('./server/config/passport')();
 
 
 app.listen(config.port);
+console.log(process.env.NODE_ENV);
 console.log("App listening on port " + config.port);

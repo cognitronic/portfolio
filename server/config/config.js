@@ -17,4 +17,4 @@ module.exports = {
         db: 'mongodb://dannyschreiber.net/ravenartmedia',
         port: process.env.PORT || 80
     }
-}
+};
