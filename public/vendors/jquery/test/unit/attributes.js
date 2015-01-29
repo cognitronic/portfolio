@@ -63,7 +63,7 @@ test( "attr(String)", function() {
 	equal( jQuery("#google").attr("title"), "Google!", "Check for title attribute" );
 	equal( jQuery("#mark").attr("hreflang"), "en", "Check for hreflang attribute" );
 	equal( jQuery("#en").attr("lang"), "en", "Check for lang attribute" );
-	equal( jQuery("#simon").attr("class"), "blog link", "Check for class attribute" );
+	equal( jQuery("#simon").attr("class"), "post link", "Check for class attribute" );
 	equal( jQuery("#name").attr("name"), "name", "Check for name attribute" );
 	equal( jQuery("#text1").attr("name"), "action", "Check for name attribute" );
 	ok( jQuery("#form").attr("action").indexOf("formaction") >= 0, "Check for action attribute" );

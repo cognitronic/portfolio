@@ -24,3 +24,5 @@ exports.authenticate = function(req, res, next){
 
     auth(req, res, next);
 };
+
+exports.isAuthenticated = passport.authenticate('local', {session: false});

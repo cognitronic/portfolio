@@ -35,7 +35,7 @@ test( "text()", function() {
 
 	var expected, frag, $newLineTest;
 
-	expected = "This link has class=\"blog\": Simon Willison's Weblog";
+	expected = "This link has class=\"post\": Simon Willison's Weblog";
 	equal( jQuery("#sap").text(), expected, "Check for merged text of more then one element." );
 
 	// Check serialization of text values
@@ -93,7 +93,7 @@ test( "text(Function) with incoming value", function() {
 
 	expect( 2 );
 
-	var old = "This link has class=\"blog\": Simon Willison's Weblog";
+	var old = "This link has class=\"post\": Simon Willison's Weblog";
 
 	jQuery("#sap").text(function( i, val ) {
 		equal( val, old, "Make sure the incoming value is correct." );
@@ -322,7 +322,7 @@ test( "unwrap()", function() {
 var testAppendForObject = function( valueObj, isFragment ) {
 	var $base,
 		type = isFragment ? " (DocumentFragment)" : " (Element)",
-		text = "This link has class=\"blog\": Simon Willison's Weblog",
+		text = "This link has class=\"post\": Simon Willison's Weblog",
 		el = document.getElementById("sap").cloneNode( true ),
 		first = document.getElementById("first"),
 		yahoo = document.getElementById("yahoo");
@@ -551,7 +551,7 @@ test( "append(Function) with incoming value", function() {
 	}).find("option:last-child").attr("value"), "appendTest", "Appending html options to select element" );
 
 	QUnit.reset();
-	expected = "This link has class=\"blog\": Simon Willison's WeblogTry them out:";
+	expected = "This link has class=\"post\": Simon Willison's WeblogTry them out:";
 	old = jQuery("#sap").html();
 
 	jQuery("#sap").append(function( i, val ) {
@@ -561,7 +561,7 @@ test( "append(Function) with incoming value", function() {
 	equal( jQuery("#sap").text(), expected, "Check for appending of element" );
 
 	QUnit.reset();
-	expected = "This link has class=\"blog\": Simon Willison's WeblogTry them out:Yahoo";
+	expected = "This link has class=\"post\": Simon Willison's WeblogTry them out:Yahoo";
 	old = jQuery("#sap").html();
 
 	jQuery("#sap").append(function( i, val ) {
@@ -571,7 +571,7 @@ test( "append(Function) with incoming value", function() {
 	equal( jQuery("#sap").text(), expected, "Check for appending of array of elements" );
 
 	QUnit.reset();
-	expected = "This link has class=\"blog\": Simon Willison's WeblogYahooTry them out:";
+	expected = "This link has class=\"post\": Simon Willison's WeblogYahooTry them out:";
 	old = jQuery("#sap").html();
 
 	jQuery("#sap").append(function( i, val ) {
@@ -786,12 +786,12 @@ test( "appendTo(String|Element|Array<Element>|jQuery)", function() {
 	equal( jQuery("#first").children().last()[ 0 ].nodeName.toLowerCase(), "strong", "Verify the last element." );
 
 	QUnit.reset();
-	expected = "This link has class=\"blog\": Simon Willison's WeblogTry them out:";
+	expected = "This link has class=\"post\": Simon Willison's WeblogTry them out:";
 	jQuery( document.getElementById("first") ).appendTo("#sap");
 	equal( jQuery("#sap").text(), expected, "Check for appending of element" );
 
 	QUnit.reset();
-	expected = "This link has class=\"blog\": Simon Willison's WeblogTry them out:Yahoo";
+	expected = "This link has class=\"post\": Simon Willison's WeblogTry them out:Yahoo";
 	jQuery([ document.getElementById("first"), document.getElementById("yahoo") ]).appendTo("#sap");
 	equal( jQuery("#sap").text(), expected, "Check for appending of array of elements" );
 
@@ -799,7 +799,7 @@ test( "appendTo(String|Element|Array<Element>|jQuery)", function() {
 	ok( jQuery(document.createElement("script")).appendTo("body").length, "Make sure a disconnected script can be appended." );
 
 	QUnit.reset();
-	expected = "This link has class=\"blog\": Simon Willison's WeblogYahooTry them out:";
+	expected = "This link has class=\"post\": Simon Willison's WeblogYahooTry them out:";
 	jQuery("#yahoo, #first").appendTo("#sap");
 	equal( jQuery("#sap").text(), expected, "Check for appending of jQuery object" );
 
@@ -854,22 +854,22 @@ var testPrepend = function( val ) {
 	equal( jQuery("#select3").prepend( val("<option value='prependTest'>Prepend Test</option>" ) ).find("option:first-child").attr("value"), "prependTest", "Prepending html options to select element" );
 
 	QUnit.reset();
-	expected = "Try them out:This link has class=\"blog\": Simon Willison's Weblog";
+	expected = "Try them out:This link has class=\"post\": Simon Willison's Weblog";
 	jQuery("#sap").prepend( val(document.getElementById("first")) );
 	equal( jQuery("#sap").text(), expected, "Check for prepending of element" );
 
 	QUnit.reset();
-	expected = "Try them out:YahooThis link has class=\"blog\": Simon Willison's Weblog";
+	expected = "Try them out:YahooThis link has class=\"post\": Simon Willison's Weblog";
 	jQuery("#sap").prepend( val([ document.getElementById("first"), document.getElementById("yahoo") ]) );
 	equal( jQuery("#sap").text(), expected, "Check for prepending of array of elements" );
 
 	QUnit.reset();
-	expected = "YahooTry them out:This link has class=\"blog\": Simon Willison's Weblog";
+	expected = "YahooTry them out:This link has class=\"post\": Simon Willison's Weblog";
 	jQuery("#sap").prepend( val(jQuery("#yahoo, #first")) );
 	equal( jQuery("#sap").text(), expected, "Check for prepending of jQuery object" );
 
 	QUnit.reset();
-	expected = "Try them out:GoogleYahooThis link has class=\"blog\": Simon Willison's Weblog";
+	expected = "Try them out:GoogleYahooThis link has class=\"post\": Simon Willison's Weblog";
 	jQuery("#sap").prepend( val([ jQuery("#first"), jQuery("#yahoo, #google") ]) );
 	equal( jQuery("#sap").text(), expected, "Check for prepending of array of jQuery objects" );
 };
@@ -905,7 +905,7 @@ test( "prepend(Function) with incoming value", function() {
 	}).find("option:first-child").attr("value"), "prependTest", "Prepending html options to select element" );
 
 	QUnit.reset();
-	expected = "Try them out:This link has class=\"blog\": Simon Willison's Weblog";
+	expected = "Try them out:This link has class=\"post\": Simon Willison's Weblog";
 	old = jQuery("#sap").html();
 
 	jQuery("#sap").prepend(function( i, val ) {
@@ -916,7 +916,7 @@ test( "prepend(Function) with incoming value", function() {
 	equal( jQuery("#sap").text(), expected, "Check for prepending of element" );
 
 	QUnit.reset();
-	expected = "Try them out:YahooThis link has class=\"blog\": Simon Willison's Weblog";
+	expected = "Try them out:YahooThis link has class=\"post\": Simon Willison's Weblog";
 	old = jQuery("#sap").html();
 
 	jQuery("#sap").prepend(function( i, val ) {
@@ -927,7 +927,7 @@ test( "prepend(Function) with incoming value", function() {
 	equal( jQuery("#sap").text(), expected, "Check for prepending of array of elements" );
 
 	QUnit.reset();
-	expected = "YahooTry them out:This link has class=\"blog\": Simon Willison's Weblog";
+	expected = "YahooTry them out:This link has class=\"post\": Simon Willison's Weblog";
 	old = jQuery("#sap").html();
 
 	jQuery("#sap").prepend(function( i, val ) {
@@ -950,17 +950,17 @@ test( "prependTo(String|Element|Array<Element>|jQuery)", function() {
 	equal( jQuery("<option value='prependTest'>Prepend Test</option>").prependTo("#select3").parent().find("option:first-child").attr("value"), "prependTest", "Prepending html options to select element" );
 
 	QUnit.reset();
-	expected = "Try them out:This link has class=\"blog\": Simon Willison's Weblog";
+	expected = "Try them out:This link has class=\"post\": Simon Willison's Weblog";
 	jQuery( document.getElementById("first") ).prependTo("#sap");
 	equal( jQuery("#sap").text(), expected, "Check for prepending of element" );
 
 	QUnit.reset();
-	expected = "Try them out:YahooThis link has class=\"blog\": Simon Willison's Weblog";
+	expected = "Try them out:YahooThis link has class=\"post\": Simon Willison's Weblog";
 	jQuery( [ document.getElementById("first"), document.getElementById("yahoo") ] ).prependTo("#sap");
 	equal( jQuery("#sap").text(), expected, "Check for prepending of array of elements" );
 
 	QUnit.reset();
-	expected = "YahooTry them out:This link has class=\"blog\": Simon Willison's Weblog";
+	expected = "YahooTry them out:This link has class=\"post\": Simon Willison's Weblog";
 	jQuery("#yahoo, #first").prependTo("#sap");
 	equal( jQuery("#sap").text(), expected, "Check for prepending of jQuery object" );
 

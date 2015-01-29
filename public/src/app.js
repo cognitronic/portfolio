@@ -52,12 +52,12 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                 }
             }
         })
-        .state('blog', {
-            url: '/blog',
+        .state('post', {
+            url: '/post',
             views: {
                 'main-container@': {
-                    templateUrl: '/src/blog/index.html',
-                    controllerAs: 'BlogController'
+                    templateUrl: '/src/post/index.html',
+                    controllerAs: 'PostController'
                 },
                 'header@': {
                     templateUrl: '/src/core/layout/header.html',

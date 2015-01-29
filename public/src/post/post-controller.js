@@ -2,7 +2,7 @@
  * Created by Danny Schreiber on 1/17/2015.
  */
 (function(){ 'use strict';
-    var BlogController = function(){
+    var PostController = function(){
         var vm = this;
         var _posts = [];
         var _selectedPost = null;
@@ -13,5 +13,5 @@
             selectedPost: _selectedPost
         };
     };
-    angular.module('danny').controller('BlogController', [BlogController]);
+    angular.module('danny').controller('PostController', [PostController]);
 })();

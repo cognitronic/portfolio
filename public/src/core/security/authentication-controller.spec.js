@@ -39,7 +39,7 @@ describe('AuthenticationController', function(){
             });
             _$templateCache_.put('/src/about/index.html', '');
             _$templateCache_.put('/src/core/layout/header.html', '');
-            _$templateCache_.put('/src/blog/index.html', '');
+            _$templateCache_.put('/src/post/index.html', '');
         });
     });
 
@@ -50,7 +50,7 @@ describe('AuthenticationController', function(){
 
     describe('successfully logging in', function(){
 
-       it('should have a current $state of blog', function(){
+       it('should have a current $state of post', function(){
            var state = 'about';
            var user = {username: 'danny@ravenartmedia.com', password: 'changeme'};
            spyOn(LoginService, 'authenticateUser').andCallThrough();

@@ -15,7 +15,7 @@
                 //    response.isAuthenticated = data.success;
                 //    response.message = 'logged in successfully!';
                 //    response.user = data.user;
-                //    $state.go('blog');
+                //    $state.go('post');
                 //}, function (reason) {
                 //    response.isAuthenticated = false;
                 //    response.user = null;

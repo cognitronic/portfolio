@@ -3,16 +3,16 @@
  */
 
 // set up ======================================================================
-var express  = require('express');
+var express = require('express');
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development'
-var app      = express();
+var app = express();
 
 var config = require('./server/config/config')[env];
 
 require('./server/config/express')(app, config);
 
-var routes = require('./server/routes');
-require('./server/config/routes')(app, routes);
+
+require('./server/config/routes')(app);
 
 require('./server/config/mongoose')(config);
 
@@ -23,5 +23,4 @@ require('./server/config/passport')();
 
 
 app.listen(config.port);
-console.log(process.env.NODE_ENV);
 console.log("App listening on port " + config.port);

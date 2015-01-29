@@ -24,9 +24,9 @@ test("element - jQuery only", function() {
 test("class - jQuery only", function() {
 	expect( 4 );
 
-	deepEqual( jQuery(".blog", document.getElementsByTagName("p")).get(), q("mark", "simon"), "Finding elements with a context." );
-	deepEqual( jQuery(".blog", "p").get(), q("mark", "simon"), "Finding elements with a context." );
-	deepEqual( jQuery(".blog", jQuery("p")).get(), q("mark", "simon"), "Finding elements with a context." );
+	deepEqual( jQuery(".post", document.getElementsByTagName("p")).get(), q("mark", "simon"), "Finding elements with a context." );
+	deepEqual( jQuery(".post", "p").get(), q("mark", "simon"), "Finding elements with a context." );
+	deepEqual( jQuery(".post", jQuery("p")).get(), q("mark", "simon"), "Finding elements with a context." );
 	deepEqual( jQuery("p").find(".blog").get(), q("mark", "simon"), "Finding elements with a context." );
 });
 

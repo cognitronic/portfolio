@@ -67,12 +67,12 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                 }
             }
         })
-        .state('blog', {
-            url: '/blog',
+        .state('post', {
+            url: '/post',
             views: {
                 'main-container@': {
-                    templateUrl: '/src/blog/index.html',
-                    controllerAs: 'BlogController'
+                    templateUrl: '/src/post/index.html',
+                    controllerAs: 'PostController'
                 },
                 'header@': {
                     templateUrl: '/src/core/layout/header.html',
@@ -136,27 +136,29 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
  */
 
 (function(){ 'use strict';
-    var BlogController = function($scope){
+    var PostController = function($scope){
 
     };
-    angular.module('danny').controller('BlogController', [BlogController]);
+    angular.module('danny').controller('PostController', [PostController]);
 })();
 /**
- * Created by Danny Schreiber on 1/17/2015.
+ * Created by Danny Schreiber on 1/28/2015.
  */
 (function(){ 'use strict';
-    var BlogController = function(){
-        var vm = this;
-        var _posts = [];
-        var _selectedPost = null;
-
-
-        return  {
-            posts: _posts,
-            selectedPost: _selectedPost
-        };
+    var PostService = function(RestService, Constants, $q){
+		var _getPosts = function(){
+			var deferred = $q.defer();
+			RestService.getData(Constants.ROUTES.GET_POSTS, null, null, {showLoader: true})
+				.then(function(data){
+					deferred.resolve(data);
+				}, function(reason){
+					deferred.reject(reason);
+				});
+			return deferred.promise;
+		};
     };
-    angular.module('danny').controller('BlogController', [BlogController]);
+
+	angular.module('danny').factory('PostService', ['RestService', 'Constants', '$q', PostService]);
 })();
 /**
  * Created by Danny Schreiber on 1/26/2015.
@@ -266,7 +268,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                     $scope.onSubmit({user: $scope.user})
                         .then(function(data){
                             if(data.success){
-                                $state.go('blog');
+                                $state.go('post');
                             }
                         });
                 }
@@ -317,6 +319,19 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
     angular.module('danny').controller('ContactController', ['$scope', ContactController]);
 })();
 /**
+ * Created by Danny Schreiber on 1/28/2015.
+ */
+
+(function(){ 'use strict';
+	var BASE_API = '/api/';
+	/*jslint smarttabs:true */
+    angular.module('danny').constant('Constants', {
+	    ROUTES: {
+		    GET_POSTS: BASE_API + 'post'
+	    }
+    });
+})();
+/**
  * Created by Danny Schreiber on 1/7/2015.
  */
 (function(){ 'use strict';
@@ -354,7 +369,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                 //    response.isAuthenticated = data.success;
                 //    response.message = 'logged in successfully!';
                 //    response.user = data.user;
-                //    $state.go('blog');
+                //    $state.go('post');
                 //}, function (reason) {
                 //    response.isAuthenticated = false;
                 //    response.user = null;
@@ -397,4 +412,21 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
         };
     };
     angular.module('danny').factory('LoginService', ['RestService', '$state', '$q', LoginService]);
+})();
+/**
+ * Created by Danny Schreiber on 1/17/2015.
+ */
+(function(){ 'use strict';
+    var PostController = function(){
+        var vm = this;
+        var _posts = [];
+        var _selectedPost = null;
+
+
+        return  {
+            posts: _posts,
+            selectedPost: _selectedPost
+        };
+    };
+    angular.module('danny').controller('PostController', [PostController]);
 })();

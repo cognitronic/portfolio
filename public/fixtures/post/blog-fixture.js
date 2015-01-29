@@ -4,12 +4,12 @@
 
 (function(){ 'use strict';
     angular.module('danny.mocks')
-        .factory('BlogFixtures', BlogFixtures);
+        .factory('PostFixtures', PostFixtures);
 
-    var _blogList = getJSONFixture('blog/blog-list.json');
-    var _post = getJSONFixture('blog/post.json');
+    var _blogList = getJSONFixture('post/post-list.json');
+    var _post = getJSONFixture('post/post.json');
 
-    function BlogFixtures(){
+    function PostFixtures(){
         return {
             blogList: _blogList.posts,
             post: _post

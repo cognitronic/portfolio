@@ -25,8 +25,8 @@ test( "find(node|jQuery object)", function() {
 		$two = $blog.add( $first ),
 		$fooTwo = $foo.add( $blog );
 
-	equal( $foo.find( $blog ).text(), "Yahoo", "Find with blog jQuery object" );
-	equal( $foo.find( $blog[ 0 ] ).text(), "Yahoo", "Find with blog node" );
+	equal( $foo.find( $blog ).text(), "Yahoo", "Find with post jQuery object" );
+	equal( $foo.find( $blog[ 0 ] ).text(), "Yahoo", "Find with post node" );
 	equal( $foo.find( $first ).length, 0, "#first is not in #foo" );
 	equal( $foo.find( $first[ 0 ]).length, 0, "#first not in #foo (node)" );
 	ok( $foo.find( $two ).is(".blogTest"), "Find returns only nodes within #foo" );
@@ -45,10 +45,10 @@ test("is(String|undefined)", function() {
 	expect(30);
 	ok( jQuery("#form").is("form"), "Check for element: A form must be a form" );
 	ok( !jQuery("#form").is("div"), "Check for element: A form is not a div" );
-	ok( jQuery("#mark").is(".blog"), "Check for class: Expected class 'blog'" );
+	ok( jQuery("#mark").is(".post"), "Check for class: Expected class 'post'" );
 	ok( !jQuery("#mark").is(".link"), "Check for class: Did not expect class 'link'" );
-	ok( jQuery("#simon").is(".blog.link"), "Check for multiple classes: Expected classes 'blog' and 'link'" );
-	ok( !jQuery("#simon").is(".blogTest"), "Check for multiple classes: Expected classes 'blog' and 'link', but not 'blogTest'" );
+	ok( jQuery("#simon").is(".post.link"), "Check for multiple classes: Expected classes 'post' and 'link'" );
+	ok( !jQuery("#simon").is(".blogTest"), "Check for multiple classes: Expected classes 'post' and 'link', but not 'blogTest'" );
 	ok( jQuery("#en").is("[lang=\"en\"]"), "Check for attribute: Expected attribute lang to be 'en'" );
 	ok( !jQuery("#en").is("[lang=\"de\"]"), "Check for attribute: Expected attribute lang to be 'en', not 'de'" );
 	ok( jQuery("#text1").is("[type=\"text\"]"), "Check for attribute: Expected attribute type to be 'text'" );
@@ -84,10 +84,10 @@ test("is(jQuery)", function() {
 	expect(21);
 	ok( jQuery("#form").is( jQuery("form") ), "Check for element: A form is a form" );
 	ok( !jQuery("#form").is( jQuery("div") ), "Check for element: A form is not a div" );
-	ok( jQuery("#mark").is( jQuery(".blog") ), "Check for class: Expected class 'blog'" );
+	ok( jQuery("#mark").is( jQuery(".blog") ), "Check for class: Expected class 'post'" );
 	ok( !jQuery("#mark").is( jQuery(".link") ), "Check for class: Did not expect class 'link'" );
-	ok( jQuery("#simon").is( jQuery(".blog.link") ), "Check for multiple classes: Expected classes 'blog' and 'link'" );
-	ok( !jQuery("#simon").is( jQuery(".blogTest") ), "Check for multiple classes: Expected classes 'blog' and 'link', but not 'blogTest'" );
+	ok( jQuery("#simon").is( jQuery(".post.link") ), "Check for multiple classes: Expected classes 'post' and 'link'" );
+	ok( !jQuery("#simon").is( jQuery(".blogTest") ), "Check for multiple classes: Expected classes 'post' and 'link', but not 'blogTest'" );
 	ok( jQuery("#en").is( jQuery("[lang=\"en\"]") ), "Check for attribute: Expected attribute lang to be 'en'" );
 	ok( !jQuery("#en").is( jQuery("[lang=\"de\"]") ), "Check for attribute: Expected attribute lang to be 'en', not 'de'" );
 	ok( jQuery("#text1").is( jQuery("[type=\"text\"]") ), "Check for attribute: Expected attribute type to be 'text'" );
@@ -101,10 +101,10 @@ test("is(jQuery)", function() {
 	// Some raw elements
 	ok( jQuery("#form").is( jQuery("form")[0] ), "Check for element: A form is a form" );
 	ok( !jQuery("#form").is( jQuery("div")[0] ), "Check for element: A form is not a div" );
-	ok( jQuery("#mark").is( jQuery(".blog")[0] ), "Check for class: Expected class 'blog'" );
+	ok( jQuery("#mark").is( jQuery(".blog")[0] ), "Check for class: Expected class 'post'" );
 	ok( !jQuery("#mark").is( jQuery(".link")[0] ), "Check for class: Did not expect class 'link'" );
-	ok( jQuery("#simon").is( jQuery(".blog.link")[0] ), "Check for multiple classes: Expected classes 'blog' and 'link'" );
-	ok( !jQuery("#simon").is( jQuery(".blogTest")[0] ), "Check for multiple classes: Expected classes 'blog' and 'link', but not 'blogTest'" );
+	ok( jQuery("#simon").is( jQuery(".post.link")[0] ), "Check for multiple classes: Expected classes 'post' and 'link'" );
+	ok( !jQuery("#simon").is( jQuery(".blogTest")[0] ), "Check for multiple classes: Expected classes 'post' and 'link', but not 'blogTest'" );
 });
 
 test("is() with positional selectors", function() {
@@ -659,7 +659,7 @@ test("eq('-1') #10616", function() {
 
 test("index(no arg) #10977", function() {
 	expect(1);
-	
+
 	var $list = jQuery("<ul id='indextest'><li>THIS ONE</li><li class='one'>a</li><li class='two'>b</li><li class='three'>c</li></ul>");
 	jQuery("#qunit-fixture").append( $list );
 	strictEqual ( jQuery( "#indextest li:not(.one,.two)" ).index() , 0, "No Argument Index Check" );

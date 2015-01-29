@@ -2,7 +2,7 @@
  * Created by Danny Schreiber on 1/25/2015.
  */
 
-describe('Blog Controller: ', function(){
+describe('Post Controller: ', function(){
     beforeEach(module('danny'));
     beforeEach(module('danny.mocks'));
     beforeEach(registerProvide);
@@ -21,7 +21,7 @@ describe('Blog Controller: ', function(){
         $scope = _$rootScope_.$new();
         $httpBackend = _$httpBackend_;
         BlogFixtures = _BlogFixtures_;
-        $controller = _$controller_('BlogController as vm', {
+        $controller = _$controller_('PostController as vm', {
             $scope: $scope
         });
 

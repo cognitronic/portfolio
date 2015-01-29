@@ -6219,7 +6219,7 @@
      */
     function template(text, data, options) {
       // based on John Resig's `tmpl` implementation
-      // http://ejohn.org/blog/javascript-micro-templating/
+      // http://ejohn.org/post/javascript-micro-templating/
       // and Laura Doktorova's doT.js
       // https://github.com/olado/doT
       var settings = lodash.templateSettings;

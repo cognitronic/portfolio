@@ -12,7 +12,7 @@
                     $scope.onSubmit({user: $scope.user})
                         .then(function(data){
                             if(data.success){
-                                $state.go('blog');
+                                $state.go('post');
                             }
                         });
                 }
