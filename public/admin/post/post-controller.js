@@ -1,5 +1,5 @@
 /**
- * Created by Danny Schreiber on 1/17/2015.
+ * Created by Danny Schreiber on 1/14/2015.
  */
 
 (function(){ 'use strict';
@@ -20,5 +20,5 @@
 
         init();
     };
-    angular.module('danny').controller('PostController', ['PostService', PostController]);
+    angular.module('danny.admin').controller('PostController', ['PostService', PostController]);
 })();

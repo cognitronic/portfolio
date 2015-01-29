@@ -13,6 +13,10 @@
 				});
 			return deferred.promise;
 		};
+
+		return {
+			getPosts: _getPosts
+		};
     };
 
 	angular.module('danny').factory('PostService', ['RestService', 'Constants', '$q', PostService]);

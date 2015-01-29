@@ -72,7 +72,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
             views: {
                 'main-container@': {
                     templateUrl: '/src/post/index.html',
-                    controllerAs: 'PostController'
+                    controller: 'PostController as vm'
                 },
                 'header@': {
                     templateUrl: '/src/core/layout/header.html',
@@ -130,35 +130,6 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
     };
 
     angular.module('danny').controller('AboutController', [AboutController]);
-})();
-/**
- * Created by Danny Schreiber on 1/14/2015.
- */
-
-(function(){ 'use strict';
-    var PostController = function($scope){
-
-    };
-    angular.module('danny').controller('PostController', [PostController]);
-})();
-/**
- * Created by Danny Schreiber on 1/28/2015.
- */
-(function(){ 'use strict';
-    var PostService = function(RestService, Constants, $q){
-		var _getPosts = function(){
-			var deferred = $q.defer();
-			RestService.getData(Constants.ROUTES.GET_POSTS, null, null, {showLoader: true})
-				.then(function(data){
-					deferred.resolve(data);
-				}, function(reason){
-					deferred.reject(reason);
-				});
-			return deferred.promise;
-		};
-    };
-
-	angular.module('danny').factory('PostService', ['RestService', 'Constants', '$q', PostService]);
 })();
 /**
  * Created by Danny Schreiber on 1/26/2015.
@@ -416,17 +387,47 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 /**
  * Created by Danny Schreiber on 1/17/2015.
  */
+
 (function(){ 'use strict';
-    var PostController = function(){
+    var PostController = function(PostService){
         var vm = this;
-        var _posts = [];
-        var _selectedPost = null;
+        vm.posts = {};
 
+        function getPosts(){
+            PostService.getPosts()
+                .then(function(data){
+                    vm.posts = data;
+                });
+        }
 
-        return  {
-            posts: _posts,
-            selectedPost: _selectedPost
-        };
+        function init(){
+            getPosts();
+        }
+
+        init();
     };
-    angular.module('danny').controller('PostController', [PostController]);
+    angular.module('danny').controller('PostController', ['PostService', PostController]);
+})();
+/**
+ * Created by Danny Schreiber on 1/28/2015.
+ */
+(function(){ 'use strict';
+    var PostService = function(RestService, Constants, $q){
+		var _getPosts = function(){
+			var deferred = $q.defer();
+			RestService.getData(Constants.ROUTES.GET_POSTS, null, null, {showLoader: true})
+				.then(function(data){
+					deferred.resolve(data);
+				}, function(reason){
+					deferred.reject(reason);
+				});
+			return deferred.promise;
+		};
+
+		return {
+			getPosts: _getPosts
+		};
+    };
+
+	angular.module('danny').factory('PostService', ['RestService', 'Constants', '$q', PostService]);
 })();

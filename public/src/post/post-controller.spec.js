@@ -1,4 +1,4 @@
-/**
+    /**
  * Created by Danny Schreiber on 1/25/2015.
  */
 
@@ -38,6 +38,8 @@ describe('Post Controller: ', function(){
             expect($scope.vm.posts).not.toBeNull();
             expect($scope.vm.posts.length).toBe(3);
             expect($scope.vm.posts[0].title).toBe('title one');
+
+
        });
     });
 });

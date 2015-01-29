@@ -57,7 +57,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
             views: {
                 'main-container@': {
                     templateUrl: '/src/post/index.html',
-                    controllerAs: 'PostController'
+                    controller: 'PostController as vm'
                 },
                 'header@': {
                     templateUrl: '/src/core/layout/header.html',
