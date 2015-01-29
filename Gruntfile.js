@@ -15,24 +15,24 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         meta: {
             jsFilesForTesting: [
-                'admin/vendors/jquery/jquery.js',
-                'admin/vendors/jasmine-jquery/lib/jasmine-jquery.js',
-                'admin/vendors/angular/angular.js',
-                'admin/vendors/angular-bootstrap/ui-bootstrap-tpls.js',
-                'admin/vendors/angular-ui-router/release/angular-ui-router.js',
-                'admin/vendors/angular-mocks/angular-mocks.js',
-                'admin/vendors/lodash/dist/lodash.js',
-                'admin/vendors/ram-utilities/dist/ram-utilities-0.0.1.js',
-                'admin/fixtures/setup.js',
-                'admin/fixtures/**/*.js',
+                'www/vendors/jquery/jquery.js',
+                'www/vendors/jasmine-jquery/lib/jasmine-jquery.js',
+                'www/vendors/angular/angular.js',
+                'www/vendors/angular-bootstrap/ui-bootstrap-tpls.js',
+                'www/vendors/angular-ui-router/release/angular-ui-router.js',
+                'www/vendors/angular-mocks/angular-mocks.js',
+                'www/vendors/lodash/dist/lodash.js',
+                'www/vendors/ram-utilities/dist/ram-utilities-0.0.1.js',
+                'www/fixtures/setup.js',
+                'www/fixtures/**/*.js',
                 {
-                    pattern: 'admin/fixtures/**/*.json',
+                    pattern: 'www/fixtures/**/*.json',
                     watched: true,
                     served: true,
                     included: false
                 },
-                'admin/src/app.js',
-                'admin/src/**/*.spec.js'
+                'www/src/app.js',
+                'www/src/**/*.spec.js'
             ]
         },
 
@@ -42,7 +42,7 @@ module.exports = function (grunt) {
                 options: {
                     files: [
                         '<%= meta.jsFilesForTesting %>',
-                        'admin/src/**/*.js'
+                        'www/src/**/*.js'
                     ]
                 }
             },
@@ -66,7 +66,10 @@ module.exports = function (grunt) {
             }
         },
         jshint: {
-            beforeconcat: ['admin/src/**/*.js'],
+            beforeconcat: ['www/src/**/*.js'],
+	        options: {
+		        smarttabs: true
+	        },
             ignore_warning: {
                 options: {
                     '-W030': true
@@ -76,11 +79,11 @@ module.exports = function (grunt) {
 
         concat: {
             dist: {
-                src: ['admin/src/module.js', 'admin/src/app.js','admin/src/**/*.js', '!admin/src/**/*.spec.js'],
+                src: ['www/src/module.js', 'www/src/app.js','www/src/**/*.js', '!www/src/**/*.spec.js'],
                 dest: 'dist/<%= pkg.namelower %>-<%= pkg.version %>.js'
             },
             dist_css: {
-                src:['admin/src/assets/css/**/*.css', '!admin/src/assets/css/<%= pkg.namelower %>-<%= pkg.version %>.*'],
+                src:['www/src/assets/css/**/*.css', '!www/src/assets/css/<%= pkg.namelower %>-<%= pkg.version %>.*'],
                 dest:'dist/<%= pkg.namelower %>-<%= pkg.version %>.css'
             }
         },
@@ -108,19 +111,19 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: 'dist/',
                         src: ['<%= pkg.namelower %>-<%= pkg.version %>.js','<%= pkg.namelower %>-<%= pkg.version %>.min.js'],
-                        dest: 'admin/vendors/'
+                        dest: 'www/vendors/'
                     },
                     {
                         expand: true,
                         cwd: 'dist/',
                         src: ['<%= pkg.namelower %>-<%= pkg.version %>.css','<%= pkg.namelower %>-<%= pkg.version %>.min.css'],
-                        dest: 'admin/src/assets/css/'
+                        dest: 'www/src/assets/css/'
                     }
                 ]
             }
         },
         jsdoc: {
-            src: ['public/src/**/*.js'],
+            src: ['www/src/**/*.js'],
             options: {
                 destination: 'doc'
             }

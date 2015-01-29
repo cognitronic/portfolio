@@ -9,7 +9,7 @@ describe('Post Controller: ', function(){
     beforeEach(inject(init));
 
     var $scope, $controller, $httpBackend;
-    var BlogFixtures;
+    var PostFixtures;
 
     function registerProvide(){
         module(function($provide){
@@ -17,21 +17,21 @@ describe('Post Controller: ', function(){
         });
     }
 
-    function init(_$rootScope_, _$controller_, _$httpBackend_, _BlogFixtures_){
+    function init(_$rootScope_, _$controller_, _$httpBackend_, _PostFixtures_){
         $scope = _$rootScope_.$new();
         $httpBackend = _$httpBackend_;
-        BlogFixtures = _BlogFixtures_;
+	    PostFixtures = _PostFixtures_;
         $controller = _$controller_('PostController as vm', {
             $scope: $scope
         });
 
-        $scope.vm.posts = BlogFixtures.blogList;
+        $scope.vm.posts = PostFixtures.blogList;
     }
 
-    afterEach(function(){
-        $httpBackend.verifyNoOutstandingExpectation();
-        $httpBackend.verifyNoOutstandingRequest();
-    });
+    //afterEach(function(){
+    //    $httpBackend.verifyNoOutstandingExpectation();
+    //    $httpBackend.verifyNoOutstandingRequest();
+    //});
 
     describe('when getting all posts', function(){
         it('the posts object should not be null', function(){

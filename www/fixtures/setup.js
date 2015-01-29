@@ -7,6 +7,6 @@
 
     angular.module('danny.mocks', []);
 
-    jasmine.getJSONFixtures().fixturesPath = 'base/public/fixtures/';
+    jasmine.getJSONFixtures().fixturesPath = 'base/www/fixtures/';
 
 })(window);
