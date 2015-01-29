@@ -3,5 +3,5 @@
  */
 
 exports.index = function(req, res){
-    res.sendfile('./public/src/index.html');
+    res.sendfile('./admin/src/index.html');
 };
