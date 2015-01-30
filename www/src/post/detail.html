@@ -1,1 +1,45 @@
-hello...i'm a detail
+<section id="blog" class="page">
+    <div class="content">
+        <h2 class="section-title center">
+            <span>
+                <i class="icon-book-open"></i>MANAGE POST
+            </span>
+        </h2>
+        <!-- .readable-content -->
+        <div class="readable-content">
+
+            <article class="page type-page hentry">
+
+                <!-- .entry-content -->
+                <div class="entry-content">
+                    <div class="show-buttons pull-right">
+                        <a ng-click="vm.savePost()" class="button">
+                            Save Post
+                        </a>
+                        <a ng-click="vm.deletePost()" class="button red">
+                            Delete Post
+                        </a>
+                    </div>
+                    <ng-form name="blog-details" class="validate-form">
+                        <p>
+                            <label class="inline-label">
+                                <input type="checkbox" name="isActive">Is Active
+                            </label>
+                            <label class="inline-label">
+                                <input type="checkbox" name="isPosted">Is Posted
+                            </label>
+                        </p>
+                        <p>
+                            <label for="title">Title *</label>
+                            <input type="text" name="title" id="title" class="required">
+                        </p>
+                        <p>
+                            <label for="post-preview">Preview Post</label>
+                            <textarea name="post-preview" id="post-preview"></textarea>
+                        </p>
+                    </ng-form>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
