@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js single-page-layout" data-classic-layout="false" data-mobile-only-classic-layout="true" data-inAnimation="fadeInUp" data-outAnimation="fadeOutDownBig" ng-app="danny">
+<html lang="en" class="no-js one-page-layout" data-classic-layout="false" data-mobile-only-classic-layout="true" data-inAnimation="fadeInUp" data-outAnimation="fadeOutDownBig" ng-app="danny">
     <head lang="en">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -47,7 +47,9 @@
     <body>
         <div class="container" id="container">
             <div ui-view="header"></div>
-            <div ui-view="main-container"></div>
+	        <div class="wrapper">
+		        <div ui-view="main-container"></div>
+	        </div>
             <div ui-view="footer"></div>
         </div>
 

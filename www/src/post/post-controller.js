@@ -6,11 +6,17 @@
     var PostController = function(PostService){
         var vm = this;
         vm.posts = {};
+	    vm.addPost = addPost;
+
+	    function addPost(){
+			PostService.addPost('new');
+	    }
 
         function getPosts(){
             PostService.getPosts()
                 .then(function(data){
                     vm.posts = data;
+		            console.log(data);
                 });
         }
 

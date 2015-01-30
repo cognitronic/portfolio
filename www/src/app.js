@@ -65,6 +65,19 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                 }
             }
         })
+	    .state('post.detail', {
+		    url: '/:id',
+		    views: {
+			    'main-container@': {
+				    templateUrl: '/src/post/detail.html',
+				    controller: 'PostDetailController as vm'
+			    },
+			    'header@': {
+				    templateUrl: '/src/core/layout/header.html',
+				    controllerAs: 'HeaderController'
+			    }
+		    }
+	    })
         .state('contact', {
             url: '/contact',
             views: {

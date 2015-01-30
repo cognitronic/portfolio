@@ -2,7 +2,7 @@
  * Created by Danny Schreiber on 1/28/2015.
  */
 (function(){ 'use strict';
-    var PostService = function(RestService, Constants, $q){
+    var PostService = function(RestService, Constants, $q, $state){
 		var _getPosts = function(){
 			var deferred = $q.defer();
 			var _success = function(data){deferred.resolve(data);};
@@ -11,10 +11,15 @@
 			return deferred.promise;
 		};
 
+	    var _addPost = function(id){
+		    $state.go('post.detail', {id: id});
+	    };
+
 		return {
-			getPosts: _getPosts
+			getPosts: _getPosts,
+			addPost: _addPost
 		};
     };
 
-	angular.module('danny').factory('PostService', ['RestService', 'Constants', '$q', PostService]);
+	angular.module('danny').factory('PostService', ['RestService', 'Constants', '$q', '$state', PostService]);
 })();
