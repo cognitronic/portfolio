@@ -11,5 +11,5 @@
 		    formatStringForURL: _formatStringForURL
 	    };
     };
-	angular.module('danny').factory('UtilityService', [UtilityService]);
+	angular.module('danny.ui.utility.service', []).factory('UtilityService', [UtilityService]);
 })();

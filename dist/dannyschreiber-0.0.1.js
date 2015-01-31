@@ -4,14 +4,25 @@
 
 angular.module('danny.ui',
 [
+	'danny.ui.services',
     'danny.ui.tpls',
     'danny.ui.change-password',
     'danny.ui.login'
 ]);
 
+
+
 angular.module('danny.ui.tpls', [
    'template/components/change-password.tpl.html',
     'template/components/login.tpl.html'
+]);
+/**
+ * Created by Danny Schreiber on 1/31/2015.
+ */
+
+angular.module('danny.ui.services', [
+	'danny.ui.utility.service',
+	'danny.ui.post.service'
 ]);
 /**
  * Created by Danny Schreiber on 1/4/2015.
@@ -408,7 +419,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 		    formatStringForURL: _formatStringForURL
 	    };
     };
-	angular.module('danny').factory('UtilityService', [UtilityService]);
+	angular.module('danny.ui.utility.service', []).factory('UtilityService', [UtilityService]);
 })();
 /**
  * Created by Danny Schreiber on 1/17/2015.
@@ -491,6 +502,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 				PostService.getPost($state.params.title)
 					.then(function(data){
 						if(data[0]){
+							data[0].tags = data[0].tags.join(', ');
 							vm.post = data[0];
 						}
 					});
@@ -510,6 +522,10 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 
 	    var _formatStringForUrl = function(str){
 		    return str.split(' ').join('-');
+	    };
+
+	    var _formatTagsForSaving = function(tags){
+		    return tags.split(',');
 	    };
 	    var _getPosts = function(){
 			var deferred = $q.defer();
@@ -531,6 +547,8 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 		    var deferred = $q.defer();
 		    var _success = function(data){deferred.resolve(data);};
 		    var _error = function(data){deferred.resolve(data);};
+
+		    post.tags = _formatTagsForSaving(post.tags);
 		    if(title === 'new'){
 			    RestService.postData(Constants.ROUTES.POSTS, null, null, post, _success, '', _error, {showLoader: true});
 		    } else {
@@ -552,5 +570,5 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 		};
     };
 
-	angular.module('danny').factory('PostService', ['RestService', 'Constants', '$q', PostService]);
+	angular.module('danny.ui.post.service', []).factory('PostService', ['RestService', 'Constants', '$q', PostService]);
 })();

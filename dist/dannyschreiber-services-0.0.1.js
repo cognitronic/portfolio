@@ -1,4 +1,27 @@
 /**
+ * Created by Danny Schreiber on 1/31/2015.
+ */
+
+angular.module('danny.ui.services', [
+	'danny.ui.utility.service',
+	'danny.ui.post.service'
+]);
+/**
+ * Created by Danny Schreiber on 1/31/2015.
+ */
+(function(){ 'use strict';
+    var UtilityService = function(){
+	    var _formatStringForURL = function(str){
+		    return str.split(' ').join('-');
+	    };
+
+	    return {
+		    formatStringForURL: _formatStringForURL
+	    };
+    };
+	angular.module('danny.ui.utility.service', []).factory('UtilityService', [UtilityService]);
+})();
+/**
  * Created by Danny Schreiber on 1/28/2015.
  */
 (function(){ 'use strict';

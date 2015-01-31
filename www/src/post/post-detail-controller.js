@@ -44,6 +44,7 @@
 				PostService.getPost($state.params.title)
 					.then(function(data){
 						if(data[0]){
+							data[0].tags = data[0].tags.join(', ');
 							vm.post = data[0];
 						}
 					});
