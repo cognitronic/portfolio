@@ -12,31 +12,51 @@
 
                 <!-- .entry-content -->
                 <div class="entry-content">
-                    <div class="show-buttons pull-right">
-                        <a ng-click="vm.savePost()" class="button">
-                            Save Post
-                        </a>
-                        <a ng-click="vm.deletePost()" class="button red">
-                            Delete Post
-                        </a>
-                    </div>
                     <ng-form name="blog-details" class="validate-form">
+	                    <div class="show-buttons pull-right">
+		                    <a ng-click="vm.savePost()" class="button">
+			                    Save Post
+		                    </a>
+		                    <a ng-click="vm.deletePost()" class="button red">
+			                    Delete Post
+		                    </a>
+	                    </div>
                         <p>
                             <label class="inline-label">
-                                <input type="checkbox" name="isActive">Is Active
+                                <input type="checkbox" name="isActive" ng-model="vm.post.isActive">Is Active
                             </label>
                             <label class="inline-label">
-                                <input type="checkbox" name="isPosted">Is Posted
+                                <input type="checkbox" ng-model="vm.post.isPosted" name="isPosted">Is Posted
                             </label>
                         </p>
                         <p>
                             <label for="title">Title *</label>
-                            <input type="text" name="title" id="title" class="required">
+                            <input type="text" name="title" id="title" ng-model="vm.post.title" class="required">
                         </p>
                         <p>
                             <label for="post-preview">Preview Post</label>
-                            <textarea name="post-preview" id="post-preview"></textarea>
+                            <textarea name="post-preview" ng-model="vm.post.preview" id="post-preview"></textarea>
                         </p>
+	                    <p>
+		                    <label for="image-path">Image Path</label>
+		                    <input type="text" name="image-path" ng-model="vm.post.imagePath" id="image-path"/>
+	                    </p>
+	                    <p>
+		                    <label for="post-body">Add Content</label>
+		                    <text-angular ng-model="vm.post.postContent" id="post-body" name="post-body" style="height: 500px;"></text-angular>
+	                    </p>
+	                    <p>
+		                    <label for="tags">Tags</label>
+		                    <input type="text" ng-model="vm.post.tags" name="tags" id="tags"/>
+	                    </p>
+	                    <div class="show-buttons pull-right">
+		                    <a ng-click="vm.savePost()" class="button">
+			                    Save Post
+		                    </a>
+		                    <a ng-click="vm.deletePost()" class="button red">
+			                    Delete Post
+		                    </a>
+	                    </div>
                     </ng-form>
                 </div>
             </article>

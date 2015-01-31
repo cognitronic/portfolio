@@ -17,7 +17,7 @@ angular.module('danny.ui.tpls', [
  * Created by Danny Schreiber on 1/4/2015.
  */
 
-angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'danny.ui'])
+angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'danny.ui', 'angularFileUpload', 'textAngular'])
 
 .config(function($httpProvider, $stateProvider, $urlRouterProvider){
 
@@ -67,8 +67,8 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                 }
             }
         })
-        .state('post', {
-            url: '/post',
+        .state('posts', {
+            url: '/posts',
             views: {
                 'main-container@': {
                     templateUrl: '/src/post/index.html',
@@ -80,7 +80,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                 }
             }
         })
-	    .state('post.detail', {
+	    .state('posts.detail', {
 		    url: '/:id',
 		    views: {
 			    'main-container@': {
@@ -249,12 +249,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
             $scope.user = {};
             $element.find('#login').bind('click', function(evt){
                 if($scope.onSubmit && typeof $scope.onSubmit === 'function'){
-                    $scope.onSubmit({user: $scope.user})
-                        .then(function(data){
-                            if(data.success){
-                                $state.go('post');
-                            }
-                        });
+                    $scope.onSubmit({user: $scope.user});
                 }
             });
         };
@@ -311,7 +306,11 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 	/*jslint smarttabs:true */
     angular.module('danny').constant('Constants', {
 	    ROUTES: {
-		    GET_POSTS: BASE_API + 'post'
+		    POSTS: BASE_API + 'posts',
+		    POST: BASE_API + 'post'
+	    },
+	    CACHE: {
+		    CURRENT_USER: 'currentUser'
 	    }
     });
 })();
@@ -341,26 +340,14 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
  */
 
 (function(){ 'use strict';
-    var AuthenticationController = function($state, LoginService, $q){
+    var AuthenticationController = function(LoginService){
         var auth = this;
         var _message = 'turd';
         var _user = {};
 
         var _onSubmit = function(user){
-            var response = {};
             if(user){
-                //LoginService.authenticateUser(user).then(function (data) {
-                //    response.isAuthenticated = data.success;
-                //    response.message = 'logged in successfully!';
-                //    response.user = data.user;
-                //    $state.go('post');
-                //}, function (reason) {
-                //    response.isAuthenticated = false;
-                //    response.user = null;
-                //    response.message = reason;
-                //    // $state.go('login');
-                //});
-                return LoginService.authenticateUser(user);
+	            LoginService.authenticateUser(user);
             }
         };
 
@@ -371,44 +358,55 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
         };
     };
 
-    angular.module('danny').controller('AuthenticationController',['$state', 'LoginService', '$q',AuthenticationController]);
+    angular.module('danny').controller('AuthenticationController',['LoginService',AuthenticationController]);
 })();
 /**
  * Created by Danny Schreiber on 1/20/2015.
  */
 
 (function(){ 'use strict';
-    var LoginService = function(RestService, $state, $q){
-        var _authenticateUser = function(user){
-            var response = {};
-            var deferred  = $q.defer();
-            RestService.postData('/api/login', null, null, {username: user.username, password: user.password}, {showLoader: true})
-                .then(function(data){
-                    deferred.resolve(data);
-            }, function(reason){
-                    deferred.reject(reason);
-                });
-            return deferred.promise;
+    var LoginService = function(RestService, CacheService, Constants, $state){
+
+        var _authenticateUser = function(user) {
+
+	        var _success = function (data) {
+		        if (data.user) {
+			        CacheService.setItem(Constants.CACHE.CURRENT_USER, data.user);
+			        $state.go('posts');
+		        } else {
+			        CacheService.getItem(Constants.CACHE.CURRENT_USER);
+			        //TODO: implement toastr or something to display error.
+		        }
+	        };
+
+	        var _error = function (data) {
+		        console.log(data);
+	        };
+
+	        RestService.postData('/api/login', null, null, {
+		        username: user.username,
+		        password: user.password
+	        }, _success, '', _error, {showLoader: true});
         };
 
         return {
             authenticateUser: _authenticateUser
         };
     };
-    angular.module('danny').factory('LoginService', ['RestService', '$state', '$q', LoginService]);
+    angular.module('danny').factory('LoginService', ['RestService', 'CacheService', 'Constants', '$state', LoginService]);
 })();
 /**
  * Created by Danny Schreiber on 1/17/2015.
  */
 
 (function(){ 'use strict';
-    var PostController = function(PostService){
+    var PostController = function(PostService, $state){
         var vm = this;
         vm.posts = {};
 	    vm.addPost = addPost;
 
 	    function addPost(){
-			PostService.addPost('new');
+		    $state.go('posts.detail', {id: 'new'});
 	    }
 
         function getPosts(){
@@ -425,40 +423,83 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 
         init();
     };
-    angular.module('danny').controller('PostController', ['PostService', PostController]);
+    angular.module('danny').controller('PostController', ['PostService', '$state', PostController]);
 })();
 /**
  * Created by Danny Schreiber on 1/29/2015.
  */
 (function () {
 	'use strict';
-	var PostDetailController = function ($scope) {
+	var PostDetailController = function (CacheService, Constants, PostService, $state) {
+
+
+		var vm = this;
+
+		vm.post = {
+			postBody: '',
+			isActive: true,
+			isPosted: false,
+			title: '',
+			preview: '',
+			author: CacheService.getItem(Constants.CACHE.CURRENT_USER).name,
+			imagePath: '',
+			comments: [],
+			tags: []
+		};
+
+		vm.savePost = _savePost;
+		vm.deletePost = _deletePost;
+
+		function _savePost(){
+			PostService.savePost(vm.post)
+				.then(function(data){
+					$state.go('posts');
+				}, function(response){
+					console.log(response);
+				});
+		}
+		
+		function _deletePost(){
+
+		}
 
 	};
-	angular.module('danny').controller('PostDetailController', ['$scope', PostDetailController]);
+	angular
+		.module('danny')
+		.controller('PostDetailController', ['CacheService', 'Constants', 'PostService', '$state', PostDetailController]);
 })();
 /**
  * Created by Danny Schreiber on 1/28/2015.
  */
 (function(){ 'use strict';
-    var PostService = function(RestService, Constants, $q, $state){
-		var _getPosts = function(){
+    var PostService = function(RestService, Constants, $q){
+
+	    var _getPosts = function(){
 			var deferred = $q.defer();
 			var _success = function(data){deferred.resolve(data);};
 			var _error = function(data){deferred.resolve(data);};
-			RestService.getData(Constants.ROUTES.GET_POSTS, null, null, _success, '', _error, {showLoader: true});
+			RestService.getData(Constants.ROUTES.POSTS, null, null, _success, '', _error, {showLoader: true});
 			return deferred.promise;
 		};
 
-	    var _addPost = function(id){
-		    $state.go('post.detail', {id: id});
+	    var _savePost = function(post){
+		    var deferred = $q.defer();
+		    var _success = function(data){deferred.resolve(data);};
+		    var _error = function(data){deferred.resolve(data);};
+		    RestService.postData(Constants.ROUTES.POSTS, null, null, post, _success, '', _error, {showLoader: true});
+		    return deferred.promise;
+	    };
+
+	    var _deletePost = function(post){
+
 	    };
 
 		return {
 			getPosts: _getPosts,
-			addPost: _addPost
+			savePost: _savePost,
+			deletePost: _deletePost
 		};
     };
 
-	angular.module('danny').factory('PostService', ['RestService', 'Constants', '$q', '$state', PostService]);
+	angular.module('danny').factory('PostService', ['RestService', 'Constants', '$q', PostService]);
 })();

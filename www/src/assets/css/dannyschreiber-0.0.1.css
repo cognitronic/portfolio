@@ -1299,7 +1299,21 @@ input[type=submit],
 input[type=button],
 button,
 a.button {
- 	display: inline-block; position: relative; padding: 1em 2em 1em; font-size: .925em; font-weight: 800; text-transform: uppercase; line-height: 1.2; border: 0; outline: 0; background: #fff; border: 2px solid #DDE4E6; color: #6A7686; text-shadow: none; border-radius: 4px;
+ 	display: inline-block;
+    position: relative;
+    padding: 1em 2em 1em;
+    font-size: .925em;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.2;
+    border: 0;
+    outline: 0;
+    background: #fff;
+    border: 2px solid #DDE4E6;
+    color: #6A7686;
+    text-shadow: none;
+    border-radius: 4px;
+    cursor: pointer;
 	}
 input[type=submit]:hover,
 input[type=button]:hover,
@@ -2794,3 +2808,15 @@ a.more-link:hover,
 #nprogress .spinner-icon {
   border-top-color: #5BCF80; border-left-color: #5BCF80;
 	}
+
+
+/*------------------------- Text Editor ------------------------*/
+.ta-editor {
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+    border: 1px solid #005ca4;
+    margin:20px 0;
+}

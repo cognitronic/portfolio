@@ -2,7 +2,7 @@
  * Created by Danny Schreiber on 1/4/2015.
  */
 
-angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'danny.ui'])
+angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'danny.ui', 'angularFileUpload', 'textAngular'])
 
 .config(function($httpProvider, $stateProvider, $urlRouterProvider){
 
@@ -52,8 +52,8 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                 }
             }
         })
-        .state('post', {
-            url: '/post',
+        .state('posts', {
+            url: '/posts',
             views: {
                 'main-container@': {
                     templateUrl: '/src/post/index.html',
@@ -65,7 +65,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
                 }
             }
         })
-	    .state('post.detail', {
+	    .state('posts.detail', {
 		    url: '/:id',
 		    views: {
 			    'main-container@': {

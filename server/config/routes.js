@@ -32,8 +32,11 @@ module.exports = function(app){
     /**
      * Post Routes
      */
-    _router.route('/post')
-        .get(post.getPost);
+    _router.route('/posts')
+        .get(post.getPosts);
+
+	_router.route('/posts')
+		.post(post.postPost);
 
 
 

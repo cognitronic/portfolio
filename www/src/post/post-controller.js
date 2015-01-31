@@ -3,13 +3,13 @@
  */
 
 (function(){ 'use strict';
-    var PostController = function(PostService){
+    var PostController = function(PostService, $state){
         var vm = this;
         vm.posts = {};
 	    vm.addPost = addPost;
 
 	    function addPost(){
-			PostService.addPost('new');
+		    $state.go('posts.detail', {id: 'new'});
 	    }
 
         function getPosts(){
@@ -26,5 +26,5 @@
 
         init();
     };
-    angular.module('danny').controller('PostController', ['PostService', PostController]);
+    angular.module('danny').controller('PostController', ['PostService', '$state', PostController]);
 })();

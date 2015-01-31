@@ -7,7 +7,11 @@
 	/*jslint smarttabs:true */
     angular.module('danny').constant('Constants', {
 	    ROUTES: {
-		    GET_POSTS: BASE_API + 'post'
+		    POSTS: BASE_API + 'posts',
+		    POST: BASE_API + 'post'
+	    },
+	    CACHE: {
+		    CURRENT_USER: 'currentUser'
 	    }
     });
 })();

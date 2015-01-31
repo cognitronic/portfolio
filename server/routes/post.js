@@ -4,7 +4,7 @@
 
 var Post = require('../models/post/post');
 
-exports.getPost = function(req, res){
+exports.getPosts = function(req, res){
 	Post.find({}).exec(function(err, posts){
 		if(err){
 			res.send('error', {
@@ -13,5 +13,24 @@ exports.getPost = function(req, res){
 		} else {
 			res.json(posts);
 		}
+	});
+};
+
+exports.postPost = function(req, res){
+	var post = new Post();
+	post.author = req.body.author;
+	post.postBody = req.body.postBody;
+	post.isActive = req.body.isActive;
+	post.isPosted = req.body.isPosted;
+	post.title = req.body.title;
+	post.preview = req.body.preview;
+	post.tags = req.body.tags;
+	post.imagePath = req.body.imagePath;
+
+	post.save(function(err){
+		if(err){
+			res.send(err);
+		}
+		res.json({message: 'Post saved!', data: post});
 	});
 };

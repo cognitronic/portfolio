@@ -9,12 +9,7 @@
             $scope.user = {};
             $element.find('#login').bind('click', function(evt){
                 if($scope.onSubmit && typeof $scope.onSubmit === 'function'){
-                    $scope.onSubmit({user: $scope.user})
-                        .then(function(data){
-                            if(data.success){
-                                $state.go('post');
-                            }
-                        });
+                    $scope.onSubmit({user: $scope.user});
                 }
             });
         };
