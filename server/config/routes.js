@@ -1,9 +1,9 @@
 /**
  * Created by Danny Schreiber on 1/11/2015.
  */
-var post = require('../routes/post')
-var auth = require('../routes/auth');
-var index = require('../routes/index');
+var post = require('../controllers/post')
+var auth = require('../controllers/auth');
+var index = require('../controllers/index');
 var express = require('express');
 
 module.exports = function(app){
@@ -38,6 +38,11 @@ module.exports = function(app){
 	_router.route('/posts')
 		.post(post.postPost);
 
+	_router.route('/post/:title')
+		.get(post.getPost);
+
+	_router.route('/post/:title')
+		.put(post.putPost);
 
 
     // catch 404 and forwarding to error handler

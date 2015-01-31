@@ -8,7 +8,7 @@
     angular.module('danny').constant('Constants', {
 	    ROUTES: {
 		    POSTS: BASE_API + 'posts',
-		    POST: BASE_API + 'post'
+		    POST: BASE_API + 'post/'
 	    },
 	    CACHE: {
 		    CURRENT_USER: 'currentUser'

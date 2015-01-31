@@ -12,13 +12,14 @@
     "angular": ">= 1.0.8"
   },
   "homepage": "https://github.com/cognitronic/ram-utilities",
-  "_release": "8947a6d7ff",
+  "_release": "b303f44e3c",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "8947a6d7fff8bdc6367e89641d24f543370b95b6"
+    "commit": "b303f44e3c0fc9bf6453da4bbce1dffd3c96dc31"
   },
   "_source": "git://github.com/cognitronic/ram-utilities.git",
   "_target": "*",
-  "_originalSource": "ram-utilities"
+  "_originalSource": "ram-utilities",
+  "_direct": true
 }

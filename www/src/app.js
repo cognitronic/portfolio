@@ -66,7 +66,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
             }
         })
 	    .state('posts.detail', {
-		    url: '/:id',
+		    url: '/:title',
 		    views: {
 			    'main-container@': {
 				    templateUrl: '/src/post/detail.html',

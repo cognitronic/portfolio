@@ -15,7 +15,7 @@
                 <div class="media-box">
                     <img src="{{post.imagePath}}" alt="{{post.title}}"/>
                     <div class="mask"></div>
-                    <a href="" ui-sref="post.detail({title: post.title})"></a>
+                    <a href="" ng-click="vm.editPost(post.title)"></a>
                 </div>
                 <header class="media-cell-desc">
                     <span title="2013" class="date">
@@ -24,7 +24,7 @@
 	                    <small>{{post.dateCreated | date : 'yyyy'}}</small>
                     </span>
                     <h3>
-                        <a href="" ui-sref="post.detail">
+                        <a href="" ui-sref="vm.editPost(post.title)">
                             {{post.title}}
                         </a>
                     </h3>

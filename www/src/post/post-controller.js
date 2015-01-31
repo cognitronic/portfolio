@@ -3,13 +3,18 @@
  */
 
 (function(){ 'use strict';
-    var PostController = function(PostService, $state){
+    var PostController = function(PostService, UtilityService, $state){
         var vm = this;
         vm.posts = {};
 	    vm.addPost = addPost;
+	    vm.editPost = editPost;
 
 	    function addPost(){
-		    $state.go('posts.detail', {id: 'new'});
+		    $state.go('posts.detail', {title: 'new'});
+	    }
+
+	    function editPost(title){
+		    $state.go('posts.detail', {title: UtilityService.formatStringForURL(title)});
 	    }
 
         function getPosts(){
@@ -26,5 +31,5 @@
 
         init();
     };
-    angular.module('danny').controller('PostController', ['PostService', '$state', PostController]);
+    angular.module('danny').controller('PostController', ['PostService', 'UtilityService', '$state', PostController]);
 })();

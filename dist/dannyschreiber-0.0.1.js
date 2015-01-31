@@ -81,7 +81,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
             }
         })
 	    .state('posts.detail', {
-		    url: '/:id',
+		    url: '/:title',
 		    views: {
 			    'main-container@': {
 				    templateUrl: '/src/post/detail.html',
@@ -307,7 +307,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
     angular.module('danny').constant('Constants', {
 	    ROUTES: {
 		    POSTS: BASE_API + 'posts',
-		    POST: BASE_API + 'post'
+		    POST: BASE_API + 'post/'
 	    },
 	    CACHE: {
 		    CURRENT_USER: 'currentUser'
@@ -396,17 +396,37 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
     angular.module('danny').factory('LoginService', ['RestService', 'CacheService', 'Constants', '$state', LoginService]);
 })();
 /**
+ * Created by Danny Schreiber on 1/31/2015.
+ */
+(function(){ 'use strict';
+    var UtilityService = function(){
+	    var _formatStringForURL = function(str){
+		    return str.split(' ').join('-');
+	    };
+
+	    return {
+		    formatStringForURL: _formatStringForURL
+	    };
+    };
+	angular.module('danny').factory('UtilityService', [UtilityService]);
+})();
+/**
  * Created by Danny Schreiber on 1/17/2015.
  */
 
 (function(){ 'use strict';
-    var PostController = function(PostService, $state){
+    var PostController = function(PostService, UtilityService, $state){
         var vm = this;
         vm.posts = {};
 	    vm.addPost = addPost;
+	    vm.editPost = editPost;
 
 	    function addPost(){
-		    $state.go('posts.detail', {id: 'new'});
+		    $state.go('posts.detail', {title: 'new'});
+	    }
+
+	    function editPost(title){
+		    $state.go('posts.detail', {title: UtilityService.formatStringForURL(title)});
 	    }
 
         function getPosts(){
@@ -423,7 +443,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 
         init();
     };
-    angular.module('danny').controller('PostController', ['PostService', '$state', PostController]);
+    angular.module('danny').controller('PostController', ['PostService', 'UtilityService', '$state', PostController]);
 })();
 /**
  * Created by Danny Schreiber on 1/29/2015.
@@ -449,9 +469,12 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 
 		vm.savePost = _savePost;
 		vm.deletePost = _deletePost;
+		vm.init = _init;
+
+		vm.init();
 
 		function _savePost(){
-			PostService.savePost(vm.post)
+			PostService.savePost(vm.post, $state.params.title)
 				.then(function(data){
 					$state.go('posts');
 				}, function(response){
@@ -461,6 +484,17 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 		
 		function _deletePost(){
 
+		}
+
+		function _init(){
+			if($state.params.title !== 'new'){
+				PostService.getPost($state.params.title)
+					.then(function(data){
+						if(data[0]){
+							vm.post = data[0];
+						}
+					});
+			}
 		}
 
 	};
@@ -474,6 +508,9 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 (function(){ 'use strict';
     var PostService = function(RestService, Constants, $q){
 
+	    var _formatStringForUrl = function(str){
+		    return str.split(' ').join('-');
+	    };
 	    var _getPosts = function(){
 			var deferred = $q.defer();
 			var _success = function(data){deferred.resolve(data);};
@@ -482,11 +519,24 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 			return deferred.promise;
 		};
 
-	    var _savePost = function(post){
+	    var _getPost = function(title){
 		    var deferred = $q.defer();
 		    var _success = function(data){deferred.resolve(data);};
 		    var _error = function(data){deferred.resolve(data);};
-		    RestService.postData(Constants.ROUTES.POSTS, null, null, post, _success, '', _error, {showLoader: true});
+		    RestService.getData(Constants.ROUTES.POST + _formatStringForUrl(title), null, null, _success, '', _error, {showLoader: true});
+		    return deferred.promise;
+	    };
+
+	    var _savePost = function(post, title){
+		    var deferred = $q.defer();
+		    var _success = function(data){deferred.resolve(data);};
+		    var _error = function(data){deferred.resolve(data);};
+		    if(title === 'new'){
+			    RestService.postData(Constants.ROUTES.POSTS, null, null, post, _success, '', _error, {showLoader: true});
+		    } else {
+			    console.log('title: ', title);
+			    RestService.putPostData(Constants.ROUTES.POST + _formatStringForUrl(title), null, null, post, _success, '', _error, {showLoader: true});
+		    }
 		    return deferred.promise;
 	    };
 
@@ -496,6 +546,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 
 		return {
 			getPosts: _getPosts,
+			getPost: _getPost,
 			savePost: _savePost,
 			deletePost: _deletePost
 		};

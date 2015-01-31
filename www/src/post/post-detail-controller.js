@@ -22,9 +22,12 @@
 
 		vm.savePost = _savePost;
 		vm.deletePost = _deletePost;
+		vm.init = _init;
+
+		vm.init();
 
 		function _savePost(){
-			PostService.savePost(vm.post)
+			PostService.savePost(vm.post, $state.params.title)
 				.then(function(data){
 					$state.go('posts');
 				}, function(response){
@@ -34,6 +37,17 @@
 		
 		function _deletePost(){
 
+		}
+
+		function _init(){
+			if($state.params.title !== 'new'){
+				PostService.getPost($state.params.title)
+					.then(function(data){
+						if(data[0]){
+							vm.post = data[0];
+						}
+					});
+			}
 		}
 
 	};

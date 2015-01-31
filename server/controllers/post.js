@@ -16,6 +16,16 @@ exports.getPosts = function(req, res){
 	});
 };
 
+exports.getPost = function(req, res){
+	var title = req.params.title.split("-").join(" ");
+	Post.find({title: title}, function(err, post){
+		if(err){
+			res.send(err);
+		}
+		res.json(post);
+	});
+};
+
 exports.postPost = function(req, res){
 	var post = new Post();
 	post.author = req.body.author;
@@ -32,5 +42,23 @@ exports.postPost = function(req, res){
 			res.send(err);
 		}
 		res.json({message: 'Post saved!', data: post});
+	});
+};
+
+exports.putPost = function(req, res){
+	var updatedPost = {
+		isActive: req.body.isActive,
+		isPost: req.body.isPosted,
+		preview: req.body.preview,
+		postBody: req.body.postBody,
+		imagePath: req.body.imagePath,
+		tags: req.body.tags
+	};
+	var title = req.params.title.split("-").join(" ");
+	Post.update({title: title}, updatedPost, function(err, post){
+		if(err){
+			res.send(err);
+		}
+		res.json({message: 'Post updated', data: post});
 	});
 };
