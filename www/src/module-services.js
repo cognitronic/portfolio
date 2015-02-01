@@ -4,5 +4,6 @@
 
 angular.module('danny.ui.services', [
 	'danny.ui.utility.service',
-	'danny.ui.post.service'
+	'danny.ui.post.service',
+	'danny.ui.profile.service'
 ]);

@@ -1,7 +1,8 @@
 /**
  * Created by Danny Schreiber on 1/11/2015.
  */
-var post = require('../controllers/post')
+var post = require('../controllers/post');
+var profile = require('../controllers/profile');
 var auth = require('../controllers/auth');
 var index = require('../controllers/index');
 var express = require('express');
@@ -45,6 +46,19 @@ module.exports = function(app){
 		.put(post.putPost);
 
 
+	/**
+	 * Profile Routes
+	 */
+
+	_router.route('/profile')
+		.get(profile.getProfile);
+
+
+
+
+
+
+
     // catch 404 and forwarding to error handler
     _router.use(function(req, res, next) {
         var err = new Error('Not Found');
@@ -77,6 +91,13 @@ module.exports = function(app){
     //applys the above routes to the app
     app.use('/api', _router);
     //gets all of the public routes and passes them to Angular
+
+	app.all('/*', function(req, res, next) {
+		res.header('Access-Control-Allow-Origin', '*');
+		res.header('Access-Control-Allow-Headers', 'Content-Type,X-Requested-With');
+		res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,HEAD,DELETE,OPTIONS');
+		next();
+	});
     app.get('*', index.index);
 };
 

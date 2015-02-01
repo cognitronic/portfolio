@@ -3,13 +3,14 @@
  */
 
 var mongoose = require('mongoose');
+
 var Profile = new mongoose.Schema({
-    displayName: String,
-    title: String,
-    seoDescription: String,
-    seoKeywords: String,
-    profileImages: [String],
-    socialAccounts: [{twitter: {accountId: String, handle: String}}]
-});
+    tagLines: [String],
+    bannerImages: [String],
+    email: String,
+    name: String,
+    phone: String,
+    socialAccounts: [{twitter: {accountId: String, handle: String, url: String}, google: {accountId: String, handle: String, url: String}, facebook: {accountId: String, handle: String, url: String}, github: {accountId: String, handle: String, url: String}, stackOverflow: {accountId: String, handle: String, url: String}}]
+}, {collection: 'profile'});
 
 module.exports = mongoose.model('Profile', Profile);

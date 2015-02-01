@@ -9,6 +9,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var cors = require('cors');
 
 module.exports = function(app, config){
     //app.set('views', config.rootPath + 'server/views');
@@ -26,4 +27,5 @@ module.exports = function(app, config){
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(logger('dev'));
+	app.use(cors());
 };
