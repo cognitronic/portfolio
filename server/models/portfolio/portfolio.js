@@ -9,7 +9,9 @@ var Portfolio = new mongoose.Schema({
 	title: String,
 	description: String,
 	client: String,
+	workType: String,
 	url: String,
+	category: String,
 	technologies: [String],
 	imagePaths: [String]
 }, {collection: 'portfolio'});

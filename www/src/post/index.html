@@ -13,7 +13,9 @@
         <div class="latest-posts media-grid" data-layout="fitRows">
             <article class="hentry media-cell" ng-repeat="post in vm.posts">
                 <div class="media-box">
-                    <img src="{{post.imagePath}}" alt="{{post.title}}"/>
+	                <cl-image public-id="{{post.imagePath}}" class="thumbnail inline" >
+		                <cl-transformation format="png" height="266" width="305" crop="thumb" gravity="face" effect="sepia" radius="20"></cl-transformation>
+	                </cl-image>
                     <div class="mask"></div>
                     <a href="" ng-click="vm.editPost(post.title)"></a>
                 </div>

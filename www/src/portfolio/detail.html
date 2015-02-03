@@ -1,0 +1,74 @@
+<section id="blog" class="page">
+	<div class="content">
+		<h2 class="section-title center">
+            <span>
+                <i class="icon-book-open"></i>MANAGE POST
+            </span>
+		</h2>
+		<!-- .readable-content -->
+		<div class="readable-content">
+
+			<article class="page type-page hentry">
+
+				<!-- .entry-content -->
+				<div class="entry-content">
+					<ng-form name="blog-details" class="validate-form">
+						<div class="show-buttons pull-right">
+							<a ng-click="vm.savePortfolio()" class="button">
+								Save
+							</a>
+							<a ng-click="vm.deletePortfolio()" class="button red">
+								Delete
+							</a>
+						</div>
+						<p>
+							<label class="inline-label">
+								<input type="checkbox" name="isActive" ng-model="vm.portfolio.isActive">Is Active
+							</label>
+						</p>
+						<p>
+							<label for="title">Title *</label>
+							<input type="text" name="title" id="title" ng-model="vm.portfolio.title" class="required">
+						</p>
+						<p>
+							<label for="portfolio-client">Client</label>
+							<input type="text" name="portfolio-client" ng-model="vm.portfolio.client" id="portfolio-client">
+						</p>
+						<p>
+							<label for="portfolio-url">Url</label>
+							<input type="text" name="portfolio-url" ng-model="vm.portfolio.url" id="portfolio-url">
+						</p>
+						<p>
+							<label for="portfolio-category">Category</label>
+							<input type="text" name="portfolio-category" ng-model="vm.portfolio.category" id="portfolio-category">
+						</p>
+						<p>
+							<label for="portfolio-workType">Work Type</label>
+							<input type="text" name="portfolio-workType" ng-model="vm.portfolio.workType" id="portfolio-workType">
+						</p>
+						<p>
+							<label for="image-technologies">Technologies</label>
+							<input type="text" name="image-technologies" ng-model="vm.portfolio.technologies" id="image-technologies"/>
+						</p>
+						<p>
+							<label for="portfolio-images">Image Paths</label>
+							<textarea ng-model="vm.portfolio.imagePaths" id="portfolio-images" name="portfolio-images"></textarea>
+						</p>
+						<p>
+							<label for="portfolio-description">Description</label>
+							<text-angular ng-model="vm.portfolio.description" id="portfolio-description" name="portfolio-description" style="height: 500px;"></text-angular>
+						</p>
+						<div class="show-buttons pull-right">
+							<a ng-click="vm.savePortfolio()" class="button">
+								Save
+							</a>
+							<a ng-click="vm.deletePortfolio()" class="button red">
+								Delete
+							</a>
+						</div>
+					</ng-form>
+				</div>
+			</article>
+		</div>
+	</div>
+</section>

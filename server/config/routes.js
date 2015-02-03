@@ -65,6 +65,9 @@ module.exports = function(app){
 	_router.route('/portfolio/:title')
 		.get(portfolio.getPortfolioByTitle);
 
+	_router.route('/portfolio/:title')
+		.put(portfolio.putPortfolio);
+
 
     // catch 404 and forwarding to error handler
     _router.use(function(req, res, next) {

@@ -9,9 +9,9 @@
 			return str.split(' ').join('-');
 		};
 
-		//var _formatTagsForSaving = function(tags){
-		//	return tags.split(',');
-		//};
+		var _formatTagsForSaving = function(tags){
+			return tags.split(',');
+		};
 
 		var _getPortfolio = function(){
 			var deferred = $q.defer();
@@ -25,7 +25,7 @@
 			var deferred = $q.defer();
 			var _success = function(data){deferred.resolve(data);};
 			var _error = function(data){deferred.resolve(data);};
-			RestService.getData(Constants.ROUTES.PORTFOLIO + _formatStringForUrl(title), null, null, _success, '', _error, {showLoader: true});
+			RestService.getData(Constants.ROUTES.PORTFOLIO + '/' + _formatStringForUrl(title), null, null, _success, '', _error, {showLoader: true});
 			return deferred.promise;
 		};
 
@@ -34,11 +34,12 @@
 			var _success = function(data){deferred.resolve(data);};
 			var _error = function(data){deferred.resolve(data);};
 
-
+			portfolio.technologies = _formatTagsForSaving(portfolio.technologies);
+			portfolio.imagePaths = _formatTagsForSaving(portfolio.imagePaths);
 			if(title === 'new'){
 				RestService.postData(Constants.ROUTES.PORTFOLIO, null, null, portfolio, _success, '', _error, {showLoader: true});
 			} else {
-				RestService.putPostData(Constants.ROUTES.PORTFOLIO + _formatStringForUrl(title), null, null, portfolio, _success, '', _error, {showLoader: true});
+				RestService.putPostData(Constants.ROUTES.PORTFOLIO + '/' + _formatStringForUrl(title), null, null, portfolio, _success, '', _error, {showLoader: true});
 			}
 			return deferred.promise;
 		};

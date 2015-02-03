@@ -2,7 +2,14 @@
  * Created by Danny Schreiber on 1/4/2015.
  */
 
-angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'danny.ui', 'angularFileUpload', 'textAngular'])
+angular.module('danny', [
+	'ui.router',
+	'ui.bootstrap',
+	'ram-utilities.ui',
+	'danny.ui',
+	'angularFileUpload',
+	'textAngular',
+	'cloudinary'])
 
 .config(function($httpProvider, $stateProvider, $urlRouterProvider){
 
@@ -71,6 +78,32 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 			    'main-container@': {
 				    templateUrl: '/src/post/detail.html',
 				    controller: 'PostDetailController as vm'
+			    },
+			    'header@': {
+				    templateUrl: '/src/core/layout/header.html',
+				    controllerAs: 'HeaderController'
+			    }
+		    }
+	    })
+	    .state('portfolio', {
+		    url: '/portfolio',
+		    views: {
+			    'main-container@': {
+				    templateUrl: '/src/portfolio/list.html',
+				    controller: 'PortfolioController as vm'
+			    },
+			    'header@': {
+				    templateUrl: '/src/core/layout/header.html',
+				    controllerAs: 'HeaderController'
+			    }
+		    }
+	    })
+	    .state('portfolio.detail', {
+		    url: '/:title',
+		    views: {
+			    'main-container@': {
+				    templateUrl: '/src/portfolio/detail.html',
+				    controller: 'PortfolioDetailController as vm'
 			    },
 			    'header@': {
 				    templateUrl: '/src/core/layout/header.html',

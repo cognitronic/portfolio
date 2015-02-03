@@ -23,13 +23,21 @@ angular.module('danny.ui.tpls', [
 angular.module('danny.ui.services', [
 	'danny.ui.utility.service',
 	'danny.ui.post.service',
-	'danny.ui.profile.service'
+	'danny.ui.profile.service',
+	'danny.ui.portfolio.service'
 ]);
 /**
  * Created by Danny Schreiber on 1/4/2015.
  */
 
-angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'danny.ui', 'angularFileUpload', 'textAngular'])
+angular.module('danny', [
+	'ui.router',
+	'ui.bootstrap',
+	'ram-utilities.ui',
+	'danny.ui',
+	'angularFileUpload',
+	'textAngular',
+	'cloudinary'])
 
 .config(function($httpProvider, $stateProvider, $urlRouterProvider){
 
@@ -98,6 +106,32 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 			    'main-container@': {
 				    templateUrl: '/src/post/detail.html',
 				    controller: 'PostDetailController as vm'
+			    },
+			    'header@': {
+				    templateUrl: '/src/core/layout/header.html',
+				    controllerAs: 'HeaderController'
+			    }
+		    }
+	    })
+	    .state('portfolio', {
+		    url: '/portfolio',
+		    views: {
+			    'main-container@': {
+				    templateUrl: '/src/portfolio/list.html',
+				    controller: 'PortfolioController as vm'
+			    },
+			    'header@': {
+				    templateUrl: '/src/core/layout/header.html',
+				    controllerAs: 'HeaderController'
+			    }
+		    }
+	    })
+	    .state('portfolio.detail', {
+		    url: '/:title',
+		    views: {
+			    'main-container@': {
+				    templateUrl: '/src/portfolio/detail.html',
+				    controller: 'PortfolioDetailController as vm'
 			    },
 			    'header@': {
 				    templateUrl: '/src/core/layout/header.html',
@@ -300,6 +334,12 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
         }]);
 })();
 /**
+ * Created by Danny Schreiber on 2/3/2015.
+ */
+$.cloudinary.config().cloud_name = 'raven-art-media';
+$.cloudinary.config().api_key = '194632662182779';
+$.cloudinary.config().upload_preset = 'ormwe5hh';
+/**
  * Created by Danny Schreiber on 1/14/2015.
  */
 
@@ -448,6 +488,95 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 	angular.module('danny.ui.utility.service', []).factory('UtilityService', [UtilityService]);
 })();
 /**
+ * Created by Danny Schreiber on 2/3/2015.
+ */
+(function(){ 'use strict';
+    var PortfolioController = function(PortfolioService, UtilityService, $state){
+	    var vm = this;
+	    vm.portfolio = [];
+
+	    vm.getPortfolio = getPortfolio;
+		vm.editPortfolio = editPortfolio;
+	    vm.addProject = addProject;
+
+	    init();
+
+	    function addProject(){
+		    $state.go('portfolio.detail', {title: 'new'});
+	    }
+
+	    function getPortfolio(){
+		    PortfolioService.getPortfolio()
+			    .then(function(data){
+				   vm.portfolio = data;
+			    });
+	    }
+
+	    function editPortfolio(title){
+		    $state.go('portfolio.detail', {title: UtilityService.formatStringForURL(title)});
+	    }
+
+	    function init(){
+		    vm.getPortfolio();
+	    }
+    };
+	angular.module('danny').controller('PortfolioController', ['PortfolioService', 'UtilityService', '$state',PortfolioController]);
+})();
+/**
+ * Created by Danny Schreiber on 2/3/2015.
+ */
+(function(){ 'use strict';
+    var PortfolioDetailController = function(PortfolioService, UtilityService, Constants, $state){
+	    var vm = this;
+
+	    vm.portfolio = {
+		    description: '',
+		    isActive: true,
+		    client: '',
+		    title: '',
+		    workType: '',
+		    url: '',
+		    category: '',
+		    imagePaths: [],
+		    technologies: []
+	    };
+
+	    vm.savePortfolio = _savePortfolio;
+	    vm.deletePortfolio = _deletePortfolio;
+	    vm.init = _init;
+
+	    vm.init();
+
+	    function _savePortfolio(){
+		    PortfolioService.savePortfolio(vm.portfolio, $state.params.title)
+			    .then(function(data){
+				    $state.go('portfolio');
+			    }, function(response){
+				    console.log(response);
+			    });
+	    }
+
+	    function _deletePortfolio(){
+
+	    }
+
+	    function _init(){
+		    if($state.params.title !== 'new'){
+			    PortfolioService.getPortfolioByTitle($state.params.title)
+				    .then(function(data){
+					    console.log(data);
+					    if(data[0]){
+						    data[0].technologies = data[0].technologies.join(', ');
+						    data[0].imagePaths = data[0].imagePaths.join(', ');
+						    vm.portfolio = data[0];
+					    }
+				    });
+		    }
+	    }
+    };
+	angular.module('danny').controller('PortfolioDetailController', ['PortfolioService', 'UtilityService', 'Constants', '$state', PortfolioDetailController]);
+})();
+/**
  * Created by Danny Schreiber on 2/2/2015.
  */
 
@@ -458,9 +587,9 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 			return str.split(' ').join('-');
 		};
 
-		//var _formatTagsForSaving = function(tags){
-		//	return tags.split(',');
-		//};
+		var _formatTagsForSaving = function(tags){
+			return tags.split(',');
+		};
 
 		var _getPortfolio = function(){
 			var deferred = $q.defer();
@@ -474,7 +603,7 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 			var deferred = $q.defer();
 			var _success = function(data){deferred.resolve(data);};
 			var _error = function(data){deferred.resolve(data);};
-			RestService.getData(Constants.ROUTES.PORTFOLIO + _formatStringForUrl(title), null, null, _success, '', _error, {showLoader: true});
+			RestService.getData(Constants.ROUTES.PORTFOLIO + '/' + _formatStringForUrl(title), null, null, _success, '', _error, {showLoader: true});
 			return deferred.promise;
 		};
 
@@ -483,11 +612,12 @@ angular.module('danny', [ 'ui.router', 'ui.bootstrap', 'ram-utilities.ui', 'dann
 			var _success = function(data){deferred.resolve(data);};
 			var _error = function(data){deferred.resolve(data);};
 
-
+			portfolio.technologies = _formatTagsForSaving(portfolio.technologies);
+			portfolio.imagePaths = _formatTagsForSaving(portfolio.imagePaths);
 			if(title === 'new'){
 				RestService.postData(Constants.ROUTES.PORTFOLIO, null, null, portfolio, _success, '', _error, {showLoader: true});
 			} else {
-				RestService.putPostData(Constants.ROUTES.PORTFOLIO + _formatStringForUrl(title), null, null, portfolio, _success, '', _error, {showLoader: true});
+				RestService.putPostData(Constants.ROUTES.PORTFOLIO + '/' + _formatStringForUrl(title), null, null, portfolio, _success, '', _error, {showLoader: true});
 			}
 			return deferred.promise;
 		};

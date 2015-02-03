@@ -1,0 +1,53 @@
+<!-- PAGE : PORTFOLIO -->
+<section id="portfolio" class="portfolio page">
+	<div class="content">
+		<div class="show-buttons">
+			<a ng-click="vm.addProject()" class="button">
+				Add Project
+			</a>
+		</div>
+		<h2 class="section-title center">
+            <span>
+                <i class="icon-leaf"></i>PORTFOLIO
+            </span>
+		</h2>
+
+		<!-- PORTFOLIO -->
+		<div class="portfolio-items media-grid" data-layout="masonry">
+
+
+
+			<!-- portfolio-item -->
+			<div class="media-cell design hentry" ng-repeat="p in vm.portfolio">
+
+				<div class="media-box">
+					<cl-image public-id="{{p.imagePaths[0]}}" class="thumbnail inline" >
+						<cl-transformation format="png" height="266" width="305" crop="thumb" gravity="face" radius="20"></cl-transformation>
+					</cl-image>
+					<div class="mask"></div>
+					<a href="" ng-click="vm.editPortfolio(p.title)" class="ajax"></a>
+				</div>
+
+				<div class="media-cell-desc">
+					<h3>{{p.title}}</h3>
+					<p class="category">{{p.category}}</p>
+				</div>
+
+			</div>
+			<!-- portfolio-item -->
+
+
+
+		</div>
+		<!-- PORTFOLIO -->
+
+
+
+
+
+
+	</div>
+	<!-- CONTENT -->
+
+</section>
+<!-- PAGE : PORTFOLIO -->
