@@ -9,7 +9,8 @@
 	    ROUTES: {
 		    POSTS: BASE_API + 'posts',
 		    POST: BASE_API + 'post/',
-		    PROFILE: BASE_API + 'profile'
+		    PROFILE: BASE_API + 'profile',
+		    PORTFOLIO: BASE_API + 'portfolio'
 	    },
 	    CACHE: {
 		    CURRENT_USER: 'currentUser',

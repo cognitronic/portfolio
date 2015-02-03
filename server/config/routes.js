@@ -3,6 +3,7 @@
  */
 var post = require('../controllers/post');
 var profile = require('../controllers/profile');
+var portfolio = require('../controllers/portfolio');
 var auth = require('../controllers/auth');
 var index = require('../controllers/index');
 var express = require('express');
@@ -54,9 +55,15 @@ module.exports = function(app){
 		.get(profile.getProfile);
 
 
+	/**
+	 * Portfolio Routes
+	 */
 
+	_router.route('/portfolio')
+		.get(portfolio.getPortfolio);
 
-
+	_router.route('/portfolio/:title')
+		.get(portfolio.getPortfolioByTitle);
 
 
     // catch 404 and forwarding to error handler
