@@ -10,7 +10,8 @@
 		    POSTS: BASE_API + 'posts',
 		    POST: BASE_API + 'post/',
 		    PROFILE: BASE_API + 'profile',
-		    PORTFOLIO: BASE_API + 'portfolio'
+		    PORTFOLIO: BASE_API + 'portfolio',
+		    RESUME: BASE_API + 'resume'
 	    },
 	    CACHE: {
 		    CURRENT_USER: 'currentUser',

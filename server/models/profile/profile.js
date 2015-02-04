@@ -10,6 +10,8 @@ var Profile = new mongoose.Schema({
     email: String,
     name: String,
     phone: String,
+	reading: [{name: String, icon: String}],
+	listening: [{name: String, icon: String}],
     socialAccounts: [{twitter: {accountId: String, handle: String, url: String}, google: {accountId: String, handle: String, url: String}, facebook: {accountId: String, handle: String, url: String}, github: {accountId: String, handle: String, url: String}, stackOverflow: {accountId: String, handle: String, url: String}}]
 }, {collection: 'profile'});
 

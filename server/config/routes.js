@@ -4,6 +4,7 @@
 var post = require('../controllers/post');
 var profile = require('../controllers/profile');
 var portfolio = require('../controllers/portfolio');
+var resume = require('../controllers/resume');
 var auth = require('../controllers/auth');
 var index = require('../controllers/index');
 var express = require('express');
@@ -68,6 +69,15 @@ module.exports = function(app){
 	_router.route('/portfolio/:title')
 		.put(portfolio.putPortfolio);
 
+	/**
+	 * Resume Routes
+	 */
+
+	_router.route('/resume')
+		.get(resume.getResume);
+
+	_router.route('/resume')
+		.put(resume.putResume);
 
     // catch 404 and forwarding to error handler
     _router.use(function(req, res, next) {
