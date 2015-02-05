@@ -5,6 +5,7 @@ var post = require('../controllers/post');
 var profile = require('../controllers/profile');
 var portfolio = require('../controllers/portfolio');
 var resume = require('../controllers/resume');
+var emailer = require('../controllers/email');
 var auth = require('../controllers/auth');
 var index = require('../controllers/index');
 var express = require('express');
@@ -79,12 +80,28 @@ module.exports = function(app){
 	_router.route('/resume')
 		.put(resume.putResume);
 
+
+	/**
+	 * Email routes
+	 */
+
+	_router.route('/email')
+		.post(emailer.sendEmail);
+
+
+
+
+
+
+
+
     // catch 404 and forwarding to error handler
     _router.use(function(req, res, next) {
         var err = new Error('Not Found');
         err.status = 404;
         next(err);
     });
+
 
     /// error handlers
 

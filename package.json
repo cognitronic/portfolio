@@ -52,6 +52,9 @@
     "postinstall": "bower install"
   },
   "dependencies": {
-    "cors": "~2.5.3"
+    "cors": "~2.5.3",
+    "nodemailer": "~1.3.0",
+    "nodemailer-smtp-transport": "~0.1.13",
+    "nodemailer-wellknown": "~0.1.4"
   }
 }
