@@ -79,7 +79,12 @@ module.exports = function (grunt) {
 
         concat: {
             dist: {
-                src: ['www/src/module.js', 'www/src/module-services.js', 'www/src/app.js','www/src/**/*.js', '!www/src/**/*.spec.js'],
+                src: ['www/src/config.js',
+	                'www/src/module.js',
+	                'www/src/module-services.js',
+	                'www/src/app.js',
+	                'www/src/**/*.js',
+	                '!www/src/**/*.spec.js'],
                 dest: 'dist/<%= pkg.namelower %>-<%= pkg.version %>.js'
             },
 	        dist_services: {
