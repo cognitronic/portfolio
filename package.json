@@ -8,6 +8,10 @@
     "type": "git",
     "url": "cognitronic@github.com:dannyschreiber.git"
   },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "2.1.x"
+  },
   "devDependencies": {
     "grunt": "0.4.2",
     "grunt-contrib-concat": "0.3.0",
@@ -47,9 +51,6 @@
     "bcrypt-nodejs": "latest",
     "grunt-nodemon": "~0.3.0",
     "jade": "~1.8.2"
-  },
-  "scripts": {
-    "postinstall": "bower install"
   },
   "dependencies": {
     "cors": "~2.5.3",
