@@ -11,7 +11,8 @@
 		    POST: BASE_API + 'post/',
 		    PROFILE: BASE_API + 'profile',
 		    PORTFOLIO: BASE_API + 'portfolio',
-		    RESUME: BASE_API + 'resume'
+		    RESUME: BASE_API + 'resume',
+		    SENDMAIL: BASE_API + 'email'
 	    },
 	    CACHE: {
 		    CURRENT_USER: 'currentUser',
