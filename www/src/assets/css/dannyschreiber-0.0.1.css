@@ -2851,9 +2851,9 @@ a.more-link:hover,
 
 .red-gradient{
     background-color: red;
-    background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, red 0%, orange 30%, yellow 95%);
+    background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, red 0%, orange 30%, red 95%);
     background-image: -webkit-radial-gradient(45px 45px, circle cover, red, orange);
-    background-image: radial-gradient(45px 45px 45deg, circle cover, red 0%, orange 30%, yellow 95%);
+    background-image: radial-gradient(45px 45px 45deg, circle cover, red 0%, orange 30%, red 95%);
 }
 
 .blue-gradient{
