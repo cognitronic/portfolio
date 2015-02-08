@@ -2205,7 +2205,7 @@ angular.module("template/dialog/dialog-notify.html", []).run(["$templateCache", 
 	 * @classdesc Rest service is a collection of utility functions that wrap the Angular $http service and make REST calls easier to work with.
 	 * @constructor RestService
 	 */
-	var RestService = function($http, $q, AlertService, $window, $location, $rootScope, EventService){
+	var RestService = function($http, $q, AlertService, $window, $location, $rootScope, $state){
 
 		var _sessionTimedOutFunction;
 
@@ -2276,13 +2276,17 @@ angular.module("template/dialog/dialog-notify.html", []).run(["$templateCache", 
 				params: params,
 				cache: false
 			})
-				.success(function(data, status, headers, config) {
+				.success(function(responseData, status, headers, config) {
 					$rootScope.showLoader = false;
-					if (successFunction === undefined) {
-						_defaultSuccessFunction(data, status, headers, config);
-					}
-					else {
-						successFunction(data, status, headers, config);
+					if(responseData.isAuthenticated !== undefined && !responseData.isAuthenticated){
+						$state.go('login');
+					} else{
+						if (successFunction === undefined) {
+							_defaultSuccessFunction(responseData, status, headers, config);
+						}
+						else {
+							successFunction(responseData, status, headers, config);
+						}
 					}
 				})
 				.error(function (data, status, headers, config) {
@@ -2402,11 +2406,15 @@ angular.module("template/dialog/dialog-notify.html", []).run(["$templateCache", 
 			})
 				.success(function(postData, status, headers, config) {
 					$rootScope.showLoader = false;
-					if (successFunction === undefined) {
-						_defaultSuccessFunction(postData, status, headers, config);
-					}
-					else {
-						successFunction(data, status, headers, config);
+					if(postData.isAuthenticated !== undefined && !postData.isAuthenticated){
+						$state.go('login');
+					} else {
+						if (successFunction === undefined) {
+							_defaultSuccessFunction(postData, status, headers, config);
+						}
+						else {
+							successFunction(data, status, headers, config);
+						}
 					}
 				})
 				.error(function (postData, status, headers, config) {
@@ -2453,11 +2461,15 @@ angular.module("template/dialog/dialog-notify.html", []).run(["$templateCache", 
 			})
 				.success(function(postData, status, headers, config) {
 					$rootScope.showLoader = false;
-					if (successFunction === undefined) {
-						_defaultSuccessFunction(postData, status, headers, config);
-					}
-					else {
-						successFunction(postData, status, headers, config);
+					if(postData.isAuthenticated !== undefined && !postData.isAuthenticated){
+						$state.go('login');
+					} else {
+						if (successFunction === undefined) {
+							_defaultSuccessFunction(postData, status, headers, config);
+						}
+						else {
+							successFunction(postData, status, headers, config);
+						}
 					}
 				})
 				.error(function (postData, status, headers, config) {
@@ -2503,13 +2515,17 @@ angular.module("template/dialog/dialog-notify.html", []).run(["$templateCache", 
 				headers: headers,
 				transformRequest: transformRequest
 			})
-				.success(function(data, status, headers, config) {
+				.success(function(postData, status, headers, config) {
 					$rootScope.showLoader = false;
-					if (successFunction === undefined) {
-						_defaultSuccessFunction(data, status, headers, config);
-					}
-					else {
-						successFunction(data, status, headers, config);
+					if(postData.isAuthenticated !== undefined && !postData.isAuthenticated){
+						$state.go('login');
+					} else {
+						if (successFunction === undefined) {
+							_defaultSuccessFunction(postData, status, headers, config);
+						}
+						else {
+							successFunction(postData, status, headers, config);
+						}
 					}
 				})
 				.error(function (data, status, headers, config) {
@@ -2534,5 +2550,5 @@ angular.module("template/dialog/dialog-notify.html", []).run(["$templateCache", 
 	};
 
 
-	angular.module('ram-utilities.ui.rest.service', ['ram-utilities.ui.alert.service', 'ram-utilities.ui.event-bus.service']).factory('RestService', ['$http', '$q', 'AlertService','$window','$location', '$rootScope', 'EventService', RestService]);
+	angular.module('ram-utilities.ui.rest.service', ['ram-utilities.ui.alert.service', 'ram-utilities.ui.event-bus.service']).factory('RestService', ['$http', '$q', 'AlertService','$window','$location', '$rootScope', '$state', RestService]);
 })();
