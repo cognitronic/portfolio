@@ -11,8 +11,8 @@ angular.module('danny', [
 	'textAngular',
 	'cloudinary'])
 
-.config(function($httpProvider, $stateProvider, $urlRouterProvider){
-
+.config(function($httpProvider, $stateProvider, $locationProvider,  $urlRouterProvider){
+		$locationProvider.html5Mode(true);
     $httpProvider.defaults.transformRequest = function(data){
         if (data === undefined) {
             return data;
