@@ -19,7 +19,7 @@ module.exports = function(app, config){
 
 	var redis = require('redis');
 	var url = require('url');
-	var redisURL = url.parse(process.env.REDISCLOUD_URL || 'redis://rediscloud:6qndd7D0pK0zfVc0@pub-redis-18506.us-east-1-3.4.ec2.garantiadata.com:18506');
+	var redisURL = url.parse(process.env.REDISCLOUD_URL || 'redis://rediscloud:2EZgMu56r9bR235j@pub-redis-15090.us-east-1-2.4.ec2.garantiadata.com:15090');
 	var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 	client.auth(redisURL.auth.split(":")[1]);
 
