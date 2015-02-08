@@ -57,13 +57,13 @@ module.exports = function(app){
      * Post Routes
      */
     _router.route('/posts')
-        .get(restrict, post.getPosts);
+        .get(post.getPosts);
 
 	_router.route('/posts')
 		.post(restrict, post.postPost);
 
 	_router.route('/post/:title')
-		.get(restrict, post.getPost);
+		.get(post.getPost);
 
 	_router.route('/post/:title')
 		.put(restrict, post.putPost);
@@ -74,7 +74,7 @@ module.exports = function(app){
 	 */
 
 	_router.route('/profile')
-		.get(restrict, profile.getProfile);
+		.get(profile.getProfile);
 
 
 	/**
@@ -82,10 +82,10 @@ module.exports = function(app){
 	 */
 
 	_router.route('/portfolio')
-		.get(restrict, portfolio.getPortfolio);
+		.get(portfolio.getPortfolio);
 
 	_router.route('/portfolio/:title')
-		.get(restrict, portfolio.getPortfolioByTitle);
+		.get(portfolio.getPortfolioByTitle);
 
 	_router.route('/portfolio/:title')
 		.put(restrict, portfolio.putPortfolio);
@@ -95,7 +95,7 @@ module.exports = function(app){
 	 */
 
 	_router.route('/resume')
-		.get(restrict, resume.getResume);
+		.get(resume.getResume);
 
 	_router.route('/resume')
 		.put(restrict, resume.putResume);
