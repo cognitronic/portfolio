@@ -2815,3 +2815,57 @@ a.more-link:hover,
     border: 1px solid #005ca4;
     margin:20px 0;
 }
+
+.circle {
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin: 5px;
+    vertical-align: middle;
+}
+
+/* Create the animation blocks */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Spinning, gradient circle; CSS only! */
+.spinning-circle {
+    width: 16px;
+    height: 16px;
+
+    animation-name: spin;
+    animation-duration: 3s; /* 3 seconds */
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.yellow-gradient{
+    background-color: yellow;
+    background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);
+    background-image: -webkit-radial-gradient(45px 45px, circle cover, yellow, orange);
+    background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);
+}
+
+.red-gradient{
+    background-color: red;
+    background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, red 0%, orange 30%, yellow 95%);
+    background-image: -webkit-radial-gradient(45px 45px, circle cover, red, orange);
+    background-image: radial-gradient(45px 45px 45deg, circle cover, red 0%, orange 30%, yellow 95%);
+}
+
+.blue-gradient{
+    background-color: #1e6ff3;
+    background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, #1e6ff3 0%, white 30%, #04a0f3 95%);
+    background-image: -webkit-radial-gradient(45px 45px, circle cover, #1e6ff3, #04a0f3);
+    background-image: radial-gradient(45px 45px 45deg, circle cover, #1e6ff3 0%, white 30%, #04a0f3 95%);
+}
+
+.green-gradient{
+    background-color: #1fa315;
+    background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, #1fa315 0%, white 30%, #25c017 95%);
+    background-image: -webkit-radial-gradient(45px 45px, circle cover, #1fa315, #25c017);
+    background-image: radial-gradient(45px 45px 45deg, circle cover, #1fa315 0%, white 30%, #25c017 95%);
+}

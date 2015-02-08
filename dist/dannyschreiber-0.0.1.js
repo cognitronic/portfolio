@@ -361,6 +361,7 @@ angular.module('danny', [
     angular.module('danny').constant('Constants', {
 	    ROUTES: {
 		    POSTS: BASE_API + 'posts',
+		    ALL_POSTS: BASE_API + 'all-posts',
 		    POST: BASE_API + 'post/',
 		    PROFILE: BASE_API + 'profile',
 		    PORTFOLIO: BASE_API + 'portfolio',
@@ -692,8 +693,16 @@ angular.module('danny', [
                 });
         }
 
+	    function getAllPosts(){
+		    PostService.getAllPosts()
+			    .then(function(data){
+				    vm.posts = data;
+				    console.log(data);
+			    });
+	    }
+
         function init(){
-            getPosts();
+            getAllPosts();
         }
 
         init();
@@ -787,6 +796,14 @@ angular.module('danny', [
 		    return deferred.promise;
 	    };
 
+	    var _getAllPosts = function(){
+		    var deferred = $q.defer();
+		    var _success = function(data){deferred.resolve(data);};
+		    var _error = function(data){deferred.resolve(data);};
+		    RestService.getData(Constants.ROUTES.ALL_POSTS, null, null, _success, '', _error, {showLoader: true});
+		    return deferred.promise;
+	    };
+
 	    var _savePost = function(post, title){
 		    var deferred = $q.defer();
 		    var _success = function(data){deferred.resolve(data);};
@@ -808,6 +825,7 @@ angular.module('danny', [
 
 		return {
 			getPosts: _getPosts,
+			getAllPosts: _getAllPosts,
 			getPost: _getPost,
 			savePost: _savePost,
 			deletePost: _deletePost
