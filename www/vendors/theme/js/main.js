@@ -109,7 +109,7 @@ var $container, $blog_container;
 				setTimeout(function() { setBlogMasonry(); }, 600);	
 				$.address.change(function() {
 					setActivePage();
-					initializeMap();
+					//initializeMap();
 					setTimeout(function() { setMasonry(); }, 100);
 					setTimeout(function() { setBlogMasonry(); }, 100);	
 					});
