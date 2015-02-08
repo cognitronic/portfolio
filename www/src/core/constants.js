@@ -8,6 +8,7 @@
     angular.module('danny').constant('Constants', {
 	    ROUTES: {
 		    POSTS: BASE_API + 'posts',
+		    ALL_POSTS: BASE_API + 'all-posts',
 		    POST: BASE_API + 'post/',
 		    PROFILE: BASE_API + 'profile',
 		    PORTFOLIO: BASE_API + 'portfolio',

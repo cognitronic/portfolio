@@ -60,7 +60,7 @@ exports.postPost = function(req, res){
 exports.putPost = function(req, res){
 	var updatedPost = {
 		isActive: req.body.isActive,
-		isPost: req.body.isPosted,
+		isPosted: req.body.isPosted,
 		preview: req.body.preview,
 		postBody: req.body.postBody,
 		imagePath: req.body.imagePath,

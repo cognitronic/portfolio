@@ -25,8 +25,16 @@
                 });
         }
 
+	    function getAllPosts(){
+		    PostService.getAllPosts()
+			    .then(function(data){
+				    vm.posts = data;
+				    console.log(data);
+			    });
+	    }
+
         function init(){
-            getPosts();
+            getAllPosts();
         }
 
         init();

@@ -56,6 +56,9 @@ module.exports = function(app){
     /**
      * Post Routes
      */
+    _router.route('/all-posts')
+	    .get(post.getAllPosts);
+
     _router.route('/posts')
         .get(post.getPosts);
 

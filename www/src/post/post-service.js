@@ -27,6 +27,14 @@
 		    return deferred.promise;
 	    };
 
+	    var _getAllPosts = function(){
+		    var deferred = $q.defer();
+		    var _success = function(data){deferred.resolve(data);};
+		    var _error = function(data){deferred.resolve(data);};
+		    RestService.getData(Constants.ROUTES.ALL_POSTS, null, null, _success, '', _error, {showLoader: true});
+		    return deferred.promise;
+	    };
+
 	    var _savePost = function(post, title){
 		    var deferred = $q.defer();
 		    var _success = function(data){deferred.resolve(data);};
@@ -48,6 +56,7 @@
 
 		return {
 			getPosts: _getPosts,
+			getAllPosts: _getAllPosts,
 			getPost: _getPost,
 			savePost: _savePost,
 			deletePost: _deletePost
