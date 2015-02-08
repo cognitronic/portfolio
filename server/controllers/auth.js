@@ -19,7 +19,7 @@ exports.authenticate = function(req, res, next){
                 return next(err);
             }
 	        req.session.user = user;
-            return res.send({success:true, user: user});
+            return res.send({success:true, user: user, isAuthenticated: true});
         });
     });
 
