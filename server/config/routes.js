@@ -28,7 +28,7 @@ module.exports = function(app){
 			next();
 		} else {
 			req.session.error = 'Access denied!';
-			res.redirect('/login');
+			res.json({isAuthenticated: false});
 		}
 	}
 
