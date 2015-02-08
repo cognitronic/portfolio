@@ -18,7 +18,7 @@
 
 
 			<!-- portfolio-item -->
-			<div class="media-cell design hentry" ng-repeat="p in vm.portfolio">
+			<div class="media-cell design hentry" ng-repeat="p in vm.portfolio track by $index">
 
 				<div class="media-box">
 					<cl-image public-id="{{p.imagePaths[0]}}" class="thumbnail inline" >
