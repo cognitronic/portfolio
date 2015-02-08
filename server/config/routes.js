@@ -12,6 +12,26 @@ var express = require('express');
 
 module.exports = function(app){
 
+	app.use(function(req, res, next){
+		var err = req.session.error;
+		var msg = req.session.success;
+		delete req.session.error;
+		delete req.session.success;
+		res.locals.message = '';
+		if (err) res.locals.message = '<p class="msg error">' + err + '</p>';
+		if (msg) res.locals.message = '<p class="msg success">' + msg + '</p>';
+		next();
+	});
+
+	function restrict(req, res, next) {
+		if (req.session.user) {
+			next();
+		} else {
+			req.session.error = 'Access denied!';
+			res.redirect('/login');
+		}
+	}
+
     var _router = express.Router();
 
     _router.use(function(req, res, next){
@@ -37,16 +57,16 @@ module.exports = function(app){
      * Post Routes
      */
     _router.route('/posts')
-        .get(post.getPosts);
+        .get(restrict, post.getPosts);
 
 	_router.route('/posts')
-		.post(post.postPost);
+		.post(restrict, post.postPost);
 
 	_router.route('/post/:title')
-		.get(post.getPost);
+		.get(restrict, post.getPost);
 
 	_router.route('/post/:title')
-		.put(post.putPost);
+		.put(restrict, post.putPost);
 
 
 	/**
@@ -54,7 +74,7 @@ module.exports = function(app){
 	 */
 
 	_router.route('/profile')
-		.get(profile.getProfile);
+		.get(restrict, profile.getProfile);
 
 
 	/**
@@ -62,23 +82,23 @@ module.exports = function(app){
 	 */
 
 	_router.route('/portfolio')
-		.get(portfolio.getPortfolio);
+		.get(restrict, portfolio.getPortfolio);
 
 	_router.route('/portfolio/:title')
-		.get(portfolio.getPortfolioByTitle);
+		.get(restrict, portfolio.getPortfolioByTitle);
 
 	_router.route('/portfolio/:title')
-		.put(portfolio.putPortfolio);
+		.put(restrict, portfolio.putPortfolio);
 
 	/**
 	 * Resume Routes
 	 */
 
 	_router.route('/resume')
-		.get(resume.getResume);
+		.get(restrict, resume.getResume);
 
 	_router.route('/resume')
-		.put(resume.putResume);
+		.put(restrict, resume.putResume);
 
 
 	/**
@@ -86,7 +106,7 @@ module.exports = function(app){
 	 */
 
 	_router.route('/email')
-		.post(emailer.sendEmail);
+		.post(restrict, emailer.sendEmail);
 
 
 

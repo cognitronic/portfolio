@@ -18,6 +18,7 @@ exports.authenticate = function(req, res, next){
             if(err){
                 return next(err);
             }
+	        req.session.user = user;
             return res.send({success:true, user: user});
         });
     });
