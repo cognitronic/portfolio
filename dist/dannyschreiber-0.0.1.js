@@ -716,7 +716,7 @@ angular.module('danny', [
 			isPosted: false,
 			title: '',
 			preview: '',
-			author: CacheService.getItem(Constants.CACHE.CURRENT_USER).name,
+			author: CacheService.getItem(Constants.CACHE.CURRENT_USER).name || 'Danny Schreiber',
 			imagePath: '',
 			comments: [],
 			tags: []
