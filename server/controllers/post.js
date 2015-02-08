@@ -52,7 +52,8 @@ exports.putPost = function(req, res){
 		preview: req.body.preview,
 		postBody: req.body.postBody,
 		imagePath: req.body.imagePath,
-		tags: req.body.tags
+		tags: req.body.tags,
+		title: req.body.title
 	};
 	var title = req.params.title.split("-").join(" ");
 	Post.update({title: title}, updatedPost, function(err, post){
