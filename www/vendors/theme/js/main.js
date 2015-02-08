@@ -26,17 +26,17 @@ var $container, $blog_container;
 		// ------------------------------
 		
 		
-		// ------------------------------
-		// Rotating Words
-		var rotate_words = $('.rotate-words');
-		if(rotate_words.length && Modernizr.csstransforms) {
-			rotate_words.find('span').eq(0).addClass('active');
-			setInterval(function(){
-				next_word_index = rotate_words.find('.active').next().length ? rotate_words.find('.active').next().index() : 0;
-				rotate_words.find('.active').addClass('rotate-out').removeClass('rotate-in active');
-				rotate_words.find('span').eq(next_word_index).addClass('rotate-in active').removeClass('rotate-out');
-			},3000);
-		}
+		//// ------------------------------
+		//// Rotating Words
+		//var rotate_words = $('.rotate-words');
+		//if(rotate_words.length && Modernizr.csstransforms) {
+		//	rotate_words.find('span').eq(0).addClass('active');
+		//	setInterval(function(){
+		//		next_word_index = rotate_words.find('.active').next().length ? rotate_words.find('.active').next().index() : 0;
+		//		rotate_words.find('.active').addClass('rotate-out').removeClass('rotate-in active');
+		//		rotate_words.find('span').eq(next_word_index).addClass('rotate-in active').removeClass('rotate-out');
+		//	},3000);
+		//}
 		// ------------------------------
 		
 		
@@ -53,23 +53,23 @@ var $container, $blog_container;
 		  * 345735908357048478
 		  * Use this as your ID below instead!
 		  */
-		var latest_tweets = $('#latest-tweets');
-		if(latest_tweets.length) {
-			twitterFetcher.fetch(latest_tweets.attr("data-twitterId"), '', latest_tweets.attr("data-tweet-count"), true, false, true, '', false, handleTweets);
-		}
-		function handleTweets(tweets){
-		  var x = tweets.length;
-		  var n = 0;
-		  var html = '<ul>';
-		  while(n < x) {
-			html += '<li>' + tweets[n] + '</li>';
-			n++;
-		  }
-		  html += '</ul>';
-		  latest_tweets.html(html);
-		}	
-		// ------------------------------  
-		
+		//var latest_tweets = $('#latest-tweets');
+		//if(latest_tweets.length) {
+		//	twitterFetcher.fetch(latest_tweets.attr("data-twitterId"), '', latest_tweets.attr("data-tweet-count"), true, false, true, '', false, handleTweets);
+		//}
+		//function handleTweets(tweets){
+		//  var x = tweets.length;
+		//  var n = 0;
+		//  var html = '<ul>';
+		//  while(n < x) {
+		//	html += '<li>' + tweets[n] + '</li>';
+		//	n++;
+		//  }
+		//  html += '</ul>';
+		//  latest_tweets.html(html);
+		//}
+		//// ------------------------------
+		//
 		
 		
 		// ------------------------------
@@ -280,24 +280,24 @@ var $container, $blog_container;
 			check out the link below for more information about api usage
 			https://developers.google.com/maps/documentation/javascript/examples/marker-simple
 		*/
-		function initializeMap() {
-			if($('.map').length) {
-				var mapCanvas = $('#map-canvas');
-				var myLatlng = new google.maps.LatLng(mapCanvas.data("latitude"),mapCanvas.data("longitude"));
-				var mapOptions = {
-					zoom: mapCanvas.data("zoom"),
-					center: myLatlng
-				}
-				var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-				
-				var marker = new google.maps.Marker({
-				  position: myLatlng,
-				  map: map
-		  	});
-			}
-		  
-		}
-		google.maps.event.addDomListener(window, 'load', initializeMap);
+		//function initializeMap() {
+		//	if($('.map').length) {
+		//		var mapCanvas = $('#map-canvas');
+		//		var myLatlng = new google.maps.LatLng(mapCanvas.data("latitude"),mapCanvas.data("longitude"));
+		//		var mapOptions = {
+		//			zoom: mapCanvas.data("zoom"),
+		//			center: myLatlng
+		//		}
+		//		var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+		//
+		//		var marker = new google.maps.Marker({
+		//		  position: myLatlng,
+		//		  map: map
+		//  	});
+		//	}
+		//
+		//}
+		//google.maps.event.addDomListener(window, 'load', initializeMap);
 		// ------------------------------
 		
 		
