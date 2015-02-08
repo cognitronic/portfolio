@@ -356,7 +356,7 @@ angular.module('danny', [
  */
 
 (function(){ 'use strict';
-	var BASE_API = 'https://admin-ds-net.herokuapp.com/api/';
+	var BASE_API = 'http://admin.abracadaniel.net/api/';
 	/*jslint smarttabs:true */
     angular.module('danny').constant('Constants', {
 	    ROUTES: {
