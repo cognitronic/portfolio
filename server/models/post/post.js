@@ -6,6 +6,8 @@ var mongoose = require('mongoose');
 var Post = new mongoose.Schema({
 	isActive: Boolean,
 	isPosted: Boolean,
+	seoKeywords: String,
+	seoDescription: String,
 	title: String,
 	preview: String,
 	postBody: String,

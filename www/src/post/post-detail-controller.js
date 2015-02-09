@@ -12,6 +12,8 @@
 			postBody: '',
 			isActive: true,
 			isPosted: false,
+			seoKeywords: '',
+			seoDescription: '',
 			title: '',
 			preview: '',
 			author: 'Danny Schreiber',

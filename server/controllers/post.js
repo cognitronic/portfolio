@@ -43,6 +43,8 @@ exports.postPost = function(req, res){
 	post.author = req.body.author;
 	post.postBody = req.body.postBody;
 	post.isActive = req.body.isActive;
+	post.seoKeywords = req.body.seoKeywords;
+	post.seoDescription = req.body.seoDescription;
 	post.isPosted = req.body.isPosted;
 	post.title = req.body.title;
 	post.preview = req.body.preview;
@@ -62,6 +64,8 @@ exports.putPost = function(req, res){
 		isActive: req.body.isActive,
 		isPosted: req.body.isPosted,
 		preview: req.body.preview,
+		seoKeywords: req.body.seoKeywords,
+		seoDescription: req.body.seoDescription,
 		postBody: req.body.postBody,
 		imagePath: req.body.imagePath,
 		tags: req.body.tags,

@@ -33,6 +33,8 @@ exports.postPortfolio = function(req, res){
 	portfolio.isActive = req.body.isActive;
 	portfolio.client = req.body.client;
 	portfolio.url = req.body.url;
+	portfolio.seoKeywords = req.body.seoKeywords;
+	portfolio.seoDescription = req.body.seoDescription;
 	portfolio.category = req.body.category;
 	portfolio.workType = req.body.workType;
 	portfolio.technologies = req.body.technologies;
@@ -50,6 +52,8 @@ exports.putPortfolio = function(req, res){
 	var updatedPortfolio = {
 		isActive: req.body.isActive,
 		description: req.body.description,
+		seoKeywords: req.body.seoKeywords,
+		seoDescription: req.body.seoDescription,
 		category: req.body.category,
 		client: req.body.client,
 		workType: req.body.workType,
