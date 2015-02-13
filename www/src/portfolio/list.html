@@ -18,21 +18,21 @@
 
 
 			<!-- portfolio-item -->
-			<div class="media-cell design hentry" ng-repeat="p in vm.portfolio track by $index">
+			<div class="col-md-4 col-sm-6 col-xs-12  hentry" ng-repeat="p in vm.portfolio track by $index">
+				<div class="media-container">
+					<div class="media-box">
+						<cl-image public-id="{{p.imagePaths[0]}}" class="thumbnail inline" >
+							<cl-transformation format="png" height="266" width="305" crop="fill" effect="shadow"></cl-transformation>
+						</cl-image>
+						<a href="" ng-click="vm.editPortfolio(p.title)" class="ajax"></a>
+					</div>
 
-				<div class="media-box">
-					<cl-image public-id="{{p.imagePaths[0]}}" class="thumbnail inline" >
-						<cl-transformation format="png" height="266" width="305" crop="thumb" gravity="face" radius="20"></cl-transformation>
-					</cl-image>
-					<div class="mask"></div>
-					<a href="" ng-click="vm.editPortfolio(p.title)" class="ajax"></a>
+					<div class="media-cell-desc">
+						<h3>{{p.title}}</h3>
+						<p class="category">{{p.category}}</p>
+					</div>
+
 				</div>
-
-				<div class="media-cell-desc">
-					<h3>{{p.title}}</h3>
-					<p class="category">{{p.category}}</p>
-				</div>
-
 			</div>
 			<!-- portfolio-item -->
 

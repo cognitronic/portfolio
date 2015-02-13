@@ -325,7 +325,7 @@ angular.module('danny', [
         .run(['$templateCache', function($templateCache){
             $templateCache.put('template/components/login.tpl.html',
                 '<div class="row">' +
-                    '<div class="col-md-4 col-md-offset-5 col-xs-12 col-xs-offset-2">' +
+                    '<div class="col-md-4 col-md-offset-4 col-xs-12 col-xs-offset-2">' +
                         '<div>' +
                             '<label for="email">Email:</label>' +
                             '<input type="email" id="email" ng-model="user.username" class="required" name="email" autofocus />' +
@@ -356,7 +356,8 @@ angular.module('danny', [
  */
 
 (function(){ 'use strict';
-	var BASE_API = 'http://admin.abracadaniel.net/api/';
+	//var BASE_API = 'http://admin.abracadaniel.net/api/';
+	var BASE_API = 'http://localhost:3000/api/';
 	/*jslint smarttabs:true */
     angular.module('danny').constant('Constants', {
 	    ROUTES: {
@@ -723,6 +724,8 @@ angular.module('danny', [
 			postBody: '',
 			isActive: true,
 			isPosted: false,
+			seoKeywords: '',
+			seoDescription: '',
 			title: '',
 			preview: '',
 			author: 'Danny Schreiber',

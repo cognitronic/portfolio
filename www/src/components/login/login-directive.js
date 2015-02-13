@@ -31,7 +31,7 @@
         .run(['$templateCache', function($templateCache){
             $templateCache.put('template/components/login.tpl.html',
                 '<div class="row">' +
-                    '<div class="col-md-4 col-md-offset-5 col-xs-12 col-xs-offset-2">' +
+                    '<div class="col-md-4 col-md-offset-4 col-xs-12 col-xs-offset-2">' +
                         '<div>' +
                             '<label for="email">Email:</label>' +
                             '<input type="email" id="email" ng-model="user.username" class="required" name="email" autofocus />' +

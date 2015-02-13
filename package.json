@@ -31,7 +31,8 @@
     "karma-chrome-launcher": "0.1.7",
     "karma-firefox-launcher": "0.1.4",
     "karma-ie-launcher": "0.1.5",
-    "jasmine-node": "1.14.5"
+    "jasmine-node": "1.14.5",
+    "grunt-text-replace": "~0.4.0"
   },
   "dependencies": {
     "socket.io": "latest",

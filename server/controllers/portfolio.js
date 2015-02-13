@@ -52,20 +52,26 @@ exports.putPortfolio = function(req, res){
 	var updatedPortfolio = {
 		isActive: req.body.isActive,
 		description: req.body.description,
-		seoKeywords: req.body.seoKeywords,
-		seoDescription: req.body.seoDescription,
+		seoKeywords: req.body.seoKeywords || '',
+		seoDescription: req.body.seoDescription || '',
 		category: req.body.category,
 		client: req.body.client,
+		title: req.body.title,
 		workType: req.body.workType,
 		url: req.body.url,
 		technologies: req.body.technologies,
 		imagePaths: req.body.imagePaths
 	};
-	var title = req.params.title.split("-").join(" ");
-	Portfolio.update({title: title}, updatedPortfolio, function(err, portfolio){
-		if(err){
-			res.send(err);
-		}
-		res.json({message: 'Portfolio updated', data: portfolio});
-	});
+
+	var oId = req.body;
+	var id = oId._id;
+	delete oId._id;
+	if(id){
+		Portfolio.update({_id: id}, updatedPortfolio, {upsert: true}, function(err, portfolio){
+			if(err){
+				res.send(err);
+			}
+			res.json({message: 'Portfolio updated', data: portfolio});
+		});
+	}
 };
