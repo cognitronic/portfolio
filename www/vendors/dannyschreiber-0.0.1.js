@@ -356,8 +356,8 @@ angular.module('danny', [
  */
 
 (function(){ 'use strict';
-	//var BASE_API = 'http://admin.abracadaniel.net/api/';
-	var BASE_API = 'http://localhost:3000/api/';
+	var BASE_API = 'http://admin.abracadaniel.net/api/';
+	//var BASE_API = 'http://localhost:3000/api/';
 	/*jslint smarttabs:true */
     angular.module('danny').constant('Constants', {
 	    ROUTES: {
