@@ -618,6 +618,9 @@ angular.module('danny', [
 		};
 
 		var _formatTagsForSaving = function(tags){
+			if(Object.prototype.toString.call(tags) === '[object Array]'){
+				return tags;
+			}
 			return tags.split(',');
 		};
 
