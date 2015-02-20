@@ -71,11 +71,18 @@ exports.putPost = function(req, res){
 		tags: req.body.tags,
 		title: req.body.title
 	};
-	var title = req.params.title.split("-").join(" ");
-	Post.update({title: title}, updatedPost, function(err, post){
-		if(err){
-			res.send(err);
-		}
-		res.json({message: 'Post updated', data: post});
-	});
+
+	var oId = req.body;
+	var id = oId._id;
+	delete oId._id;
+	if(id){
+		Post.update({_id: id}, updatedPost, {upsert: true}, function(err, post){
+			if(err){
+				res.send(err);
+			}
+			res.json({message: 'Post updated', data: post});
+		});
+	}
+
+
 };

@@ -15,9 +15,8 @@
 	            <span class="circle spinning-circle" ng-class="post.isPosted ?'green-gradient': 'red-gradient'"></span>
                 <div class="media-box">
 	                <cl-image public-id="{{post.imagePath}}" class="thumbnail inline" >
-		                <cl-transformation format="png" height="266" width="305" crop="thumb" effect="shadow"></cl-transformation>
+		                <cl-transformation format="png" height="488" width="650" crop="fill" effect="shadow"></cl-transformation>
 	                </cl-image>
-                    <div class="mask"></div>
                     <a href="" ng-click="vm.editPost(post.title)"></a>
                 </div>
                 <header class="media-cell-desc">
