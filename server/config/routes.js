@@ -109,7 +109,7 @@ module.exports = function(app){
 	 */
 
 	_router.route('/email')
-		.post(restrict, emailer.sendEmail);
+		.post(emailer.sendEmail);
 
 
 
