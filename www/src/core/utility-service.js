@@ -4,7 +4,7 @@
 (function(){ 'use strict';
     var UtilityService = function(){
 	    var _formatStringForURL = function(str){
-		    return str.split(' ').join('-');
+		    return str.split(' ').join('-').trim();
 	    };
 
 	    return {
