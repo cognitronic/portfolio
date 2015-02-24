@@ -13,8 +13,6 @@
 		    return deferred.promise;
 	    };
 
-
-
 	    return {
 		    sendMail: _sendMail
 	    };
